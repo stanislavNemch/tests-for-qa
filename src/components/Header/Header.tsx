@@ -1,12 +1,19 @@
 import { useAuth } from "../context/AuthContext";
 import css from "./Header.module.css";
+import logoUrl from "../../assets/logo.svg";
 
 const Header = () => {
     const { isLoggedIn, user, logout } = useAuth();
 
     return (
         <header className={css.header}>
-            <div className={css.logo}>Pro[Test_]</div>
+            <div className={css.logo}>
+                <img
+                    src={logoUrl}
+                    alt="ProTest Logo"
+                    className={css.logoIcon}
+                />
+            </div>
             <nav className={css.nav}>
                 {isLoggedIn ? (
                     <>
