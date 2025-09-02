@@ -2,12 +2,12 @@
 
 :root {
     --font-family: "Montserrat", sans-serif;
-	--second-family: "Montserrat Medium", sans-serif;
-	--third-family: "Montserrat SemiBold", sans-serif;
+    --second-family: "Montserrat Medium", sans-serif;
+    --third-family: "Montserrat SemiBold", sans-serif;
     line-height: 1.5;
     font-weight: 400;
-	font-size: 14px;
-	letter-spacing: 0.02em;
+    font-size: 14px;
+    letter-spacing: 0.02em;
 
     color: #555;
     background-color: #f5f6fb;
@@ -20,7 +20,19 @@
 
 body {
     padding: 0;
-    /* background-color: #f2f3f7; */
+    font-family: var(--font-family);
+}
+
+h1,
+h2 {
+    font-family: var(--third-family);
+    font-weight: 600;
+}
+
+strong,
+b {
+    font-family: var(--second-family);
+    font-weight: 500;
 }
 
 /* reset styles */
