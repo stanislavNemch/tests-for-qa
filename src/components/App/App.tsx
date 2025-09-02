@@ -10,7 +10,6 @@ function AppContent() {
     const { isLoggedIn, isLoading } = useAuth();
 
     return (
-        // Используем css.appWrapper для правильного позиционирования футера
         <div className={css.appWrapper}>
             <Header />
             <main className={css.container}>

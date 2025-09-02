@@ -1,12 +1,9 @@
 .authContainer {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 40px;
-    align-items: center;
-    min-height: calc(
-        100vh - 100px
-    ); /* Высота минус хедер/футер если они будут */
+    gap: 112px;
     padding: 20px;
+    /* Высота и центрирование теперь управляются родительским .authLayout */
 }
 
 .authInfo {
@@ -119,14 +116,15 @@
 /* Адаптив */
 @media only screen and (min-width: 768px) {
     .formWrapper {
-        padding: 40px;
+        padding: 38px;
     }
 }
 
 @media only screen and (min-width: 1280px) {
     .authContainer {
-        grid-template-columns: 1fr 1fr;
-        gap: 80px;
+        grid-template-columns: auto auto;
+        justify-content: center;
+        gap: 112px;
         text-align: left;
     }
 
