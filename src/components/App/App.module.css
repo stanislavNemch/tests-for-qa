@@ -1,8 +1,17 @@
-/* mobile styles */
+/* Этот класс добавим в ваш существующий файл */
+.appWrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Этот класс заставит основной контент занять всё доступное пространство */
 .container {
+    flex: 1 1 auto; /* Это важно для "прижатия" футера */
     max-width: 320px;
     padding: 0 20px;
     margin: 0 auto;
+    width: 100%;
 }
 
 /* tablet styles */

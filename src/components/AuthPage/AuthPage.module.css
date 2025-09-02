@@ -1,0 +1,130 @@
+.authContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+    min-height: calc(
+        100vh - 100px
+    ); /* Высота минус хедер/футер если они будут */
+    padding: 20px;
+}
+
+.authInfo {
+    text-align: center;
+}
+
+.title {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.description {
+    max-width: 450px;
+    margin: 0 auto;
+    line-height: 1.6;
+    color: #555;
+}
+
+.formWrapper {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.formTitle {
+    margin-bottom: 15px;
+    text-align: center;
+    color: #777;
+    font-size: 14px;
+}
+
+.googleButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.googleButton:hover {
+    background-color: #f9f9f9;
+}
+
+.input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.mainButton,
+.secondaryButton {
+    flex: 1;
+    padding: 12px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.mainButton {
+    background-color: #ff751d;
+    color: white;
+}
+
+.mainButton:hover {
+    background-color: #e66000;
+}
+
+.secondaryButton {
+    background-color: transparent;
+    border: 1px solid #ccc;
+    color: #555;
+}
+
+.secondaryButton:hover {
+    background-color: #f1f1f1;
+}
+
+/* Адаптив */
+@media only screen and (min-width: 768px) {
+    .formWrapper {
+        padding: 40px;
+    }
+}
+
+@media only screen and (min-width: 1280px) {
+    .authContainer {
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        text-align: left;
+    }
+
+    .authInfo {
+        text-align: left;
+    }
+
+    .description {
+        margin: 0;
+    }
+}
