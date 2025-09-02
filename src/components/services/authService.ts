@@ -5,6 +5,7 @@ import type {
     LoginRequest,
     LoginResponse,
     RefreshResponse,
+    UserData,
 } from "../types/auth";
 
 const BASE_URL = "https://protest-backend.goit.global";
@@ -34,6 +35,11 @@ export const authService = {
         instance.post<RefreshResponse>("/auth/refresh", { sid }),
 
     logout: () => instance.post("/auth/logout"),
+
+    getCurrentUser: async (): Promise<UserData> => {
+        const { data } = await instance.get<UserData>("/user");
+        return data;
+    },
 };
 
 // --- Интерцептор для автоматического обновления токенов ---
