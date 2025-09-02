@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import "./index.css";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "./components/context/AuthContext.tsx";
