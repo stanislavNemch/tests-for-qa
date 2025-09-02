@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./index.css";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "./components/context/AuthContext.tsx";
@@ -11,5 +12,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <App />
             <Toaster position="top-right" />
         </AuthProvider>
+        <SpeedInsights />
     </React.StrictMode>
 );
