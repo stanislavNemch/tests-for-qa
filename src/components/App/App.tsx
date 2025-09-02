@@ -4,9 +4,10 @@ import AuthPage from "../AuthPage/AuthPage";
 import HomePage from "../HomePage/HomePage";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import Loader from "../Loader/Loader";
 
 function AppContent() {
-    const { isLoggedIn } = useAuth();
+    const { isLoggedIn, isLoading } = useAuth();
 
     return (
         // Используем css.appWrapper для правильного позиционирования футера
@@ -16,6 +17,7 @@ function AppContent() {
                 {isLoggedIn ? <HomePage /> : <AuthPage />}
             </main>
             <Footer />
+            {isLoading && <Loader />}
         </div>
     );
 }

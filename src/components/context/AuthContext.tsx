@@ -15,8 +15,10 @@ interface AuthContextType {
     isLoggedIn: boolean;
     user: UserData | null;
     token: string | null;
+    isLoading: boolean;
     login: (data: LoginResponse) => void;
     logout: () => void;
+    setIsLoading: (isLoading: boolean) => void;
 }
 
 // --- Создание контекста ---
@@ -31,6 +33,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [user, setUser] = useState<UserData | null>(null);
     const [token, setToken] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     // --- Вынесено выше, чтобы не было проблем с замыканиями ---
     const handleLogin = (loginData: LoginResponse) => {
@@ -45,13 +48,21 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         setToken(loginData.accessToken);
     };
 
-    const handleLogout = () => {
-        localStorage.clear();
-        authService.setToken(null);
-        setIsLoggedIn(false);
-        setUser(null);
-        setToken(null);
-        toast.success("You have been logged out.");
+    const handleLogout = async () => {
+        setIsLoading(true);
+        try {
+            await authService.logout();
+            localStorage.clear();
+            authService.setToken(null);
+            setIsLoggedIn(false);
+            setUser(null);
+            setToken(null);
+            toast.success("You have been logged out.");
+        } catch (error) {
+            toast.error("Logout failed. Please try again.");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     useEffect(() => {
@@ -132,8 +143,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
                 isLoggedIn,
                 user,
                 token,
+                isLoading,
                 login: handleLogin,
                 logout: handleLogout,
+                setIsLoading,
             }}
         >
             {children}

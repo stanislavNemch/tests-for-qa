@@ -9,10 +9,11 @@ const AuthPage: React.FC = () => {
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { login } = useAuth();
+    const { login, setIsLoading } = useAuth();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setIsLoading(true);
         try {
             if (isLogin) {
                 const { data } = await authService.login({ email, password });
@@ -34,6 +35,8 @@ const AuthPage: React.FC = () => {
                 errorMessage = (error as any).response.data.message;
             }
             toast.error(errorMessage);
+        } finally {
+            setIsLoading(false);
         }
     };
 
