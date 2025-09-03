@@ -19,13 +19,13 @@ const Diagram: React.FC<DiagramProps> = ({
 
     return (
         <div className={css.diagramContainer}>
-            <PieChart width={400} height={400}>
+            <PieChart width={286} height={286}>
                 <Pie
                     data={data}
-                    cx={200}
-                    cy={200}
+                    cx={143}
+                    cy={143}
                     labelLine={false}
-                    outerRadius={80}
+                    outerRadius={140}
                     fill="#8884d8"
                     dataKey="value"
                 >

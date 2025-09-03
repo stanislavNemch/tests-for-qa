@@ -22,10 +22,16 @@ const ResultsPage = () => {
             <h2 className={css.title}>Test Results</h2>
             <div className={css.resultBox}>
                 <p className={css.resultText}>Your result: {results.result}</p>
-                <Diagram
-                    correctAnswers={correctAnswers}
-                    incorrectAnswers={incorrectAnswers}
-                />
+                <div className={css.chartAndInfo}>
+                    <Diagram
+                        correctAnswers={correctAnswers}
+                        incorrectAnswers={incorrectAnswers}
+                    />
+                    <div className={css.answerCounts}>
+                        <p>Correct: {correctAnswers}</p>
+                        <p>Incorrect: {incorrectAnswers}</p>
+                    </div>
+                </div>
                 <p className={css.mainMessage}>{results.mainMessage}</p>
                 <p className={css.secondaryMessage}>{results.secondaryMessage}</p>
             </div>
