@@ -41,9 +41,12 @@
     gap: 20px;
 }
 
+.cards {
+    text-decoration: none;
+}
+
 .card {
     width: 280px;
-    padding: 60px 51px 41px 51px;
     border-radius: 8px;
     color: white;
     cursor: pointer;
@@ -52,7 +55,7 @@
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 15px 0 rgba(18, 29, 46, 0.15);
 }
 
 .card h3 {
@@ -66,11 +69,13 @@
 }
 
 .cardDark {
-    background-color: #212121;
+    padding: 60px 51px 41px 51px;
+    background-color: #02172a;
 }
 
 .cardOrange {
-    background-color: #ff751d;
+    padding: 60px 87px 41px 87px;
+    background-color: #ff6b01;
 }
 
 @media only screen and (min-width: 768px) {
@@ -80,6 +85,20 @@
     }
 
     .card {
-        width: 300px;
+        width: 400px;
+    }
+
+    .cardDark {
+        padding: 60px 12px 41px 12px;
+    }
+
+    .cardOrange {
+        padding: 60px 134px 41px 134px;
+    }
+
+    .card h3 {
+        font-weight: 800;
+        font-size: 32px;
+        margin-bottom: 8px;
     }
 }

@@ -18,22 +18,20 @@ const HomePage = () => {
                     Linux kernel creator, hacker, 1969
                 </p>
             </div>
-            <div className={css.cards}>
-                <ul className={css.cardList}>
-                    <li className={`${css.card} ${css.cardDark}`}>
-                        <Link to="/test/tech">
-                            <h3>QA technical training</h3>
-                            <GoArrowRight size={24} color="#fff" />
-                        </Link>
-                    </li>
-                    <li className={`${css.card} ${css.cardOrange}`}>
-                        <Link to="/test/theory">
-                            <h3>Testing theory</h3>
-                            <GoArrowRight size={24} color="#fff" />
-                        </Link>
-                    </li>
-                </ul>
-            </div>
+            <ul className={css.cards}>
+                <li className={`${css.card} ${css.cardDark}`}>
+                    <Link to="/test/tech">
+                        <h3>QA technical training</h3>
+                        <GoArrowRight size={24} color="#fff" />
+                    </Link>
+                </li>
+                <li className={`${css.card} ${css.cardOrange}`}>
+                    <Link to="/test/theory">
+                        <h3>Testing theory</h3>
+                        <GoArrowRight size={24} color="#fff" />
+                    </Link>
+                </li>
+            </ul>
         </div>
     );
 };
