@@ -6,13 +6,16 @@ interface DiagramProps {
     incorrectAnswers: number;
 }
 
-const Diagram: React.FC<DiagramProps> = ({ correctAnswers, incorrectAnswers }) => {
+const Diagram: React.FC<DiagramProps> = ({
+    correctAnswers,
+    incorrectAnswers,
+}) => {
     const data = [
         { name: "Correct", value: correctAnswers },
         { name: "Incorrect", value: incorrectAnswers },
     ];
 
-    const COLORS = ["#4caf50", "#f44336"];
+    const COLORS = ["#ff6b09", "#d7d7d7"];
 
     return (
         <div className={css.diagramContainer}>
@@ -27,7 +30,10 @@ const Diagram: React.FC<DiagramProps> = ({ correctAnswers, incorrectAnswers }) =
                     dataKey="value"
                 >
                     {data.map((_, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        <Cell
+                            key={`cell-${index}`}
+                            fill={COLORS[index % COLORS.length]}
+                        />
                     ))}
                 </Pie>
                 <Tooltip />
