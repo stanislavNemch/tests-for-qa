@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import css from "./HomePage.module.css";
+import { GoArrowRight } from "react-icons/go";
 
 const HomePage = () => {
     return (
@@ -18,14 +19,20 @@ const HomePage = () => {
                 </p>
             </div>
             <div className={css.cards}>
-                <Link to="/test/tech" className={`${css.card} ${css.cardDark}`}>
-                    <h3>QA technical training</h3>
-                    <span className={css.arrow}>→</span>
-                </Link>
-                <Link to="/test/theory" className={`${css.card} ${css.cardOrange}`}>
-                    <h3>Testing theory</h3>
-                    <span className={css.arrow}>→</span>
-                </Link>
+                <ul className={css.cardList}>
+                    <li className={`${css.card} ${css.cardDark}`}>
+                        <Link to="/test/tech">
+                            <h3>QA technical training</h3>
+                            <GoArrowRight size={24} color="#fff" />
+                        </Link>
+                    </li>
+                    <li className={`${css.card} ${css.cardOrange}`}>
+                        <Link to="/test/theory">
+                            <h3>Testing theory</h3>
+                            <GoArrowRight size={24} color="#fff" />
+                        </Link>
+                    </li>
+                </ul>
             </div>
         </div>
     );
