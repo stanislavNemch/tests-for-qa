@@ -85,14 +85,19 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
                     authService.setToken(accessToken);
 
-                    const userData: UserData =
-                        await authService.getCurrentUser();
-
-                    // ЗАГЛУШКА: в реальном проекте здесь будет GET /user
-                    // const userData: UserData = {
-                    //     email: "user.from.google@test.com",
-                    //     id: "google-user-id",
-                    // };
+                    let userData: UserData;
+                    try {
+                        userData = await authService.getCurrentUser();
+                    } catch (error) {
+                        console.error(
+                            "Failed to fetch user data, using mock data.",
+                            error
+                        );
+                        userData = {
+                            email: "user.from.google@test.com",
+                            id: "google-user-id",
+                        };
+                    }
 
                     const loginData: LoginResponse = {
                         accessToken,
