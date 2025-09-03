@@ -1,7 +1,6 @@
 export interface RegistrationRequest {
     email: string;
     password: string;
-    originUrl: string;
 }
 
 export interface LoginRequest {
