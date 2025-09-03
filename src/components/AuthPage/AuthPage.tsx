@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import css from "./AuthPage.module.css";
 import { FcGoogle } from "react-icons/fc";
@@ -10,6 +10,16 @@ const AuthPage: React.FC = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { login, setIsLoading } = useAuth();
+
+    useEffect(() => {
+        toast(
+            "To use Google login, please register first with email and password. After registration, you can log in via Google.",
+            {
+                icon: "⚠️",
+                style: { background: "#fff3cd", color: "#856404" },
+            }
+        );
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -41,13 +51,12 @@ const AuthPage: React.FC = () => {
     };
 
     const handleGoogleAuth = () => {
-        toast(
-            "To use Google login, please register first with email and password. After registration, you can log in via Google.",
-            {
-                icon: "⚠️",
-                style: { background: "#fff3cd", color: "#856404" },
-            }
-        );
+        // Можно убрать toast или оставить его как информационный при первом рендере страницы
+        const apiBase =
+            import.meta.env.VITE_API_URL ??
+            "https://protest-backend.goit.global";
+        const redirect = encodeURIComponent(window.location.origin);
+        window.location.href = `${apiBase}/auth/google?redirect_uri=${redirect}`;
     };
 
     return (
