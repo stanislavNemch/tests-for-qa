@@ -17,6 +17,16 @@ const ResultsPage = () => {
     );
     const incorrectAnswers = totalQuestions - correctAnswers;
 
+    const correctPercent = Math.round((correctAnswers / totalQuestions) * 100);
+    const incorrectPercent = Math.round(
+        (incorrectAnswers / totalQuestions) * 100
+    );
+
+    const legendData = [
+        { name: "Correct", value: correctPercent, color: "#ff6b09" },
+        { name: "Incorrect", value: incorrectPercent, color: "#d7d7d7" },
+    ];
+
     return (
         <div className={css.resultsContainer}>
             <h2 className={css.title}>Test Results</h2>
@@ -28,15 +38,42 @@ const ResultsPage = () => {
                         incorrectAnswers={incorrectAnswers}
                     />
                     <div className={css.answerCounts}>
-                        <p>Correct: {correctAnswers}</p>
-                        <p>Incorrect: {incorrectAnswers}</p>
+                        {legendData.map((entry, index) => (
+                            <div key={index} className={css.legendItem}>
+                                <span
+                                    className={css.legendColorBox}
+                                    style={{ backgroundColor: entry.color }}
+                                ></span>
+                                <p>
+                                    {entry.name}: {entry.value}%
+                                </p>
+                            </div>
+                        ))}
                     </div>
                 </div>
-                <p className={css.mainMessage}>{results.mainMessage}</p>
-                <p className={css.secondaryMessage}>{results.secondaryMessage}</p>
+                <div className={css.messages}>
+                    <div className={css.messageCounts}>
+                        <div>
+                            Correct answers - <span>{correctAnswers}</span>
+                        </div>
+                        <div className={css.verticalDivider}></div>
+                        <div>
+                            Total questions - <span>{totalQuestions}</span>
+                        </div>
+                    </div>
+                    <img
+                        src="/public/img/cat-love.webp"
+                        alt="Cat GoIT Logo"
+                        className={css.catImage}
+                    />
+                    <p className={css.mainMessage}>{results.mainMessage}</p>
+                    <p className={css.secondaryMessage}>
+                        {results.secondaryMessage}
+                    </p>
+                </div>
             </div>
             <Link to="/" className={css.tryAgainButton}>
-                Пройти ще раз
+                Try again
             </Link>
         </div>
     );

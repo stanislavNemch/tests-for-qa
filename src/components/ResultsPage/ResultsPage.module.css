@@ -35,6 +35,17 @@
     gap: 10px;
 }
 
+.legendItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.legendColorBox {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
 
 .resultText {
     font-size: 20px;
@@ -42,13 +53,50 @@
     margin-bottom: 15px;
 }
 
+.messages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.messageCounts {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-weight: 500;
+    font-size: 10px;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.messageCounts span {
+    font-weight: 700;
+}
+
+.verticalDivider {
+    display: inline-block;
+    width: 1px;
+    height: 20px;
+    background: #00122f;
+    vertical-align: middle;
+    opacity: 0.15;
+}
+
+.catImage {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
 .mainMessage {
-    font-size: 18px;
-    margin-bottom: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 18px;
 }
 
 .secondaryMessage {
-    font-size: 16px;
+    font-weight: 500;
+    font-size: 10px;
     color: #555;
 }
 
@@ -59,6 +107,7 @@
     background-color: #ff751d;
     color: white;
     text-decoration: none;
+    font-weight: 500;
     cursor: pointer;
     transition: background-color 0.2s;
 }

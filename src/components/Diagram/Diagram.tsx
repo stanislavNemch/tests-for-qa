@@ -1,4 +1,4 @@
-import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import { PieChart, Pie, Cell } from "recharts";
 import css from "./Diagram.module.css";
 
 interface DiagramProps {
@@ -19,13 +19,13 @@ const Diagram: React.FC<DiagramProps> = ({
 
     return (
         <div className={css.diagramContainer}>
-            <PieChart width={286} height={286}>
+            <PieChart width={300} height={300}>
                 <Pie
                     data={data}
                     cx={143}
                     cy={143}
                     labelLine={false}
-                    outerRadius={140}
+                    outerRadius={143}
                     fill="#8884d8"
                     dataKey="value"
                 >
@@ -36,8 +36,6 @@ const Diagram: React.FC<DiagramProps> = ({
                         />
                     ))}
                 </Pie>
-                <Tooltip />
-                <Legend />
             </PieChart>
         </div>
     );
