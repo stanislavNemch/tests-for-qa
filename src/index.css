@@ -1,13 +1,13 @@
 @import "modern-normalize/modern-normalize.css";
 
 html {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: inherit;
+    box-sizing: inherit;
 }
 
 :root {
@@ -20,7 +20,6 @@ html {
     letter-spacing: 0.02em;
 
     color: #555;
-    background-color: #f5f6fb;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -32,6 +31,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: var(--font-family);
+    background-color: #f5f6fb;
 }
 
 h1,
