@@ -30,7 +30,11 @@ const AuthPage: React.FC = () => {
                 login(data);
                 toast.success("Successfully logged in!");
             } else {
-                await authService.register({ email, password });
+                await authService.register({
+                    email,
+                    password,
+                    originUrl: window.location.origin, // <-- добавьте это поле!
+                });
                 toast.success("Successfully registered! Please log in.");
                 setIsLogin(true);
             }
