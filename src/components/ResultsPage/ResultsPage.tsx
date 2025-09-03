@@ -68,7 +68,7 @@ const ResultsPage = () => {
                         </div>
                     </div>
                     <img
-                        src="/public/img/cat-love.webp"
+                        src="/img/cat-love.webp"
                         alt="Cat GoIT Logo"
                         className={css.catImage}
                     />
