@@ -33,7 +33,7 @@ const AuthPage: React.FC = () => {
                 await authService.register({
                     email,
                     password,
-                    originUrl: window.location.origin, // <-- добавьте это поле!
+                    originUrl: window.location.origin,
                 });
                 toast.success("Successfully registered! Please log in.");
                 setIsLogin(true);
@@ -54,13 +54,21 @@ const AuthPage: React.FC = () => {
         }
     };
 
+    // --- Эмуляция Google авторизации ---
     const handleGoogleAuth = () => {
-        // Можно убрать toast или оставить его как информационный при первом рендере страницы
-        const apiBase =
-            import.meta.env.VITE_API_URL ??
-            "https://protest-backend.goit.global";
-        const redirect = encodeURIComponent(window.location.origin);
-        window.location.href = `${apiBase}/auth/google?redirect_uri=${redirect}`;
+        // TODO: Реализовать реальную Google OAuth авторизацию
+        // Сейчас просто эмулируем успешный вход
+        toast.success("Google sign-in emulated! (future real OAuth here)");
+        // Пример эмуляции входа:
+        login({
+            accessToken: "fake-google-access-token",
+            refreshToken: "fake-google-refresh-token",
+            sid: "fake-google-sid",
+            userData: {
+                email: "google.user@example.com",
+                id: "google-user-id",
+            },
+        });
     };
 
     return (
