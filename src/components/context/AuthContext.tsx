@@ -58,7 +58,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
             setUser(null);
             setToken(null);
             toast.success("You have been logged out.");
-        } catch (error) {
+        } catch {
             toast.error("Logout failed. Please try again.");
         } finally {
             setIsLoading(false);
@@ -108,6 +108,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
                         document.title,
                         window.location.pathname
                     );
+                    window.location.href = "/"; // Redirect to home page
                 } catch {
                     toast.error(
                         "Failed to fetch user data after Google login."
