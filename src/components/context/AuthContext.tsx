@@ -79,6 +79,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         if (accessToken && refreshToken && sid) {
             const fetchUserAfterGoogleAuth = async () => {
                 try {
+                    localStorage.setItem("accessToken", accessToken);
+                    localStorage.setItem("refreshToken", refreshToken);
+                    localStorage.setItem("sid", sid);
+
                     authService.setToken(accessToken);
 
                     const userData: UserData =

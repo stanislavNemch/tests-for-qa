@@ -41,8 +41,8 @@ const AuthPage: React.FC = () => {
     };
 
     const handleGoogleAuth = () => {
-        window.location.href =
-            "https://protest-backend.goit.global/auth/google";
+        const redirect_uri = window.location.origin;
+        window.location.href = `https://protest-backend.goit.global/auth/google?redirect_uri=${redirect_uri}`;
     };
 
     return (
