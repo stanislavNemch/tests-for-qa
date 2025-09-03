@@ -7,6 +7,7 @@ const ResultsPage = () => {
     const location = useLocation();
     const results = location.state?.results as TestResult | undefined;
     const totalQuestions = location.state?.totalQuestions as number | undefined;
+    const taskName = location.state?.taskName as string | undefined;
 
     if (!results || totalQuestions === undefined) {
         return <div>No results to display.</div>;
@@ -29,9 +30,14 @@ const ResultsPage = () => {
 
     return (
         <div className={css.resultsContainer}>
-            <h2 className={css.title}>Test Results</h2>
+            <h2 className={css.title}>Results</h2>
             <div className={css.resultBox}>
-                <p className={css.resultText}>Your result: {results.result}</p>
+                <div className={css.resultHeader}>
+                    <p className={css.resultText}>
+                        {taskName ? `[ ${taskName}_]` : "Task not selected"}
+                    </p>
+                    <div className={css.lineContainer}></div>
+                </div>
                 <div className={css.chartAndInfo}>
                     <Diagram
                         correctAnswers={correctAnswers}

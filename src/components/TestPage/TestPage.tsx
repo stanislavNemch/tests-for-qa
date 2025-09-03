@@ -55,7 +55,14 @@ const TestPage = () => {
                 ? authService.sendTechResults(userAnswers)
                 : authService.sendTheoryResults(userAnswers));
             navigate("/results", {
-                state: { results: response.data, totalQuestions: questions.length },
+                state: {
+                    results: response.data,
+                    totalQuestions: questions.length,
+                    taskName:
+                        testType === "tech"
+                            ? "QA technical training"
+                            : "Testing theory",
+                },
             });
         } catch (error) {
             console.error("Failed to send test results:", error);
@@ -74,7 +81,9 @@ const TestPage = () => {
     return (
         <div className={css.testContainer}>
             <h2 className={css.title}>
-                {testType === "tech" ? "QA technical training" : "Testing theory"}
+                {testType === "tech"
+                    ? "QA technical training"
+                    : "Testing theory"}
             </h2>
             <div className={css.questionContainer}>
                 <p className={css.questionText}>
