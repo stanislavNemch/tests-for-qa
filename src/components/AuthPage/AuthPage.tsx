@@ -41,8 +41,13 @@ const AuthPage: React.FC = () => {
     };
 
     const handleGoogleAuth = () => {
-        const redirect_uri = window.location.origin;
-        window.location.href = `https://protest-backend.goit.global/auth/google?redirect_uri=${redirect_uri}`;
+        toast(
+            "To use Google login, please register first with email and password. After registration, you can log in via Google.",
+            {
+                icon: "⚠️",
+                style: { background: "#fff3cd", color: "#856404" },
+            }
+        );
     };
 
     return (

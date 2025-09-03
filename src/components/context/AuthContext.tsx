@@ -113,7 +113,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
                         document.title,
                         window.location.pathname
                     );
-                    window.location.href = "/"; // Redirect to home page
                 } catch {
                     toast.error(
                         "Failed to fetch user data after Google login."
