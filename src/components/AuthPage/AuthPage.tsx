@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import css from "./AuthPage.module.css";
 import { FcGoogle } from "react-icons/fc";
@@ -7,7 +8,14 @@ import AuthForm from "../AuthForm/AuthForm";
 
 const AuthPage: React.FC = () => {
     const [isLogin, setIsLogin] = useState(true);
-    const { login } = useAuth();
+    const { login, isLoggedIn } = useAuth();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate("/");
+        }
+    }, [isLoggedIn, navigate]);
 
     useEffect(() => {
         toast(

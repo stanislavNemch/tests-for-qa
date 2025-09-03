@@ -30,3 +30,20 @@ export interface RefreshResponse {
     newRefreshToken: string;
     newSid: string;
 }
+
+export interface Question {
+    question: string;
+    questionId: number;
+    answers: string[];
+}
+
+export interface Answer {
+    questionId: number;
+    answer: string;
+}
+
+export interface TestResult {
+    result: string;
+    mainMessage: string;
+    secondaryMessage: string;
+}

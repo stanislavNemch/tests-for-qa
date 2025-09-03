@@ -1,9 +1,8 @@
+import { Link } from "react-router-dom";
 import css from "./HomePage.module.css";
-// Header и Footer больше не импортируем и не рендерим здесь
 
 const HomePage = () => {
     return (
-        // Оставляем только основной контент страницы
         <div className={css.mainContent}>
             <div className={css.quote}>
                 <p className={css.quoteText}>
@@ -19,14 +18,14 @@ const HomePage = () => {
                 </p>
             </div>
             <div className={css.cards}>
-                <div className={`${css.card} ${css.cardDark}`}>
+                <Link to="/test/tech" className={`${css.card} ${css.cardDark}`}>
                     <h3>QA technical training</h3>
                     <span className={css.arrow}>→</span>
-                </div>
-                <div className={`${css.card} ${css.cardOrange}`}>
+                </Link>
+                <Link to="/test/theory" className={`${css.card} ${css.cardOrange}`}>
                     <h3>Testing theory</h3>
                     <span className={css.arrow}>→</span>
-                </div>
+                </Link>
             </div>
         </div>
     );

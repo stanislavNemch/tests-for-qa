@@ -1,0 +1,37 @@
+.infoContainer {
+    padding: 40px 20px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.infoSection {
+    margin-bottom: 30px;
+}
+
+.sectionTitle {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+a {
+    color: #ff751d;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

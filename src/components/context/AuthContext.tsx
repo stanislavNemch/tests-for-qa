@@ -58,6 +58,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
             setUser(null);
             setToken(null);
             toast.success("You have been logged out.");
+            window.location.href = "/auth"; // Redirect to auth page
         } catch {
             toast.error("Logout failed. Please try again.");
         } finally {

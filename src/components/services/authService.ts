@@ -40,6 +40,11 @@ export const authService = {
         const { data } = await instance.get<UserData>("/user");
         return data;
     },
+
+    getTechQuestions: () => instance.get("/qa-test/tech"),
+    getTheoryQuestions: () => instance.get("/qa-test/theory"),
+    sendTechResults: (answers: any) => instance.post("/qa-test/tech-results", { answers }),
+    sendTheoryResults: (answers: any) => instance.post("/qa-test/theory-results", { answers }),
 };
 
 // --- Интерцептор для автоматического обновления токенов ---

@@ -1,0 +1,53 @@
+.resultsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.resultBox {
+    width: 100%;
+    max-width: 600px;
+    padding: 30px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.resultText {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.mainMessage {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.secondaryMessage {
+    font-size: 16px;
+    color: #555;
+}
+
+.tryAgainButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff751d;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.tryAgainButton:hover {
+    background-color: #e66000;
+}
