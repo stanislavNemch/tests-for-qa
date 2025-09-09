@@ -1,9 +1,9 @@
+/* MOBILE FIRST — базовые стили для мобильных устройств */
 .header {
     display: flex;
-    flex: 1;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 0 20px;
     border-bottom: 1px solid #e0e0e0;
 }
 
@@ -13,41 +13,113 @@
     gap: 7px;
     font-size: 24px;
     font-weight: bold;
+    z-index: 1103;
+    position: relative;
+}
+
+.logoRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.rightBlock {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.userMobile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 20px;
+}
+
+.userMobile span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+    line-height: 1.33;
+    border-radius: 100%;
+    fill: #fff;
+    box-shadow: 0 1px 1px 0 rgba(18, 29, 46, 0.1);
+}
+
+.verticalDivider {
+    display: flex;
+    align-items: center;
+    height: 68px;
+    background-color: #e2e3e5;
+}
+
+.hamburgerMenu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    margin-left: 20px;
 }
 
 .nav {
-    display: flex;
-    gap: 15px;
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 96px;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: transparent;
+    z-index: 1001;
+    justify-content: flex-start;
     align-items: center;
+    gap: 28px;
+    padding: 0;
+}
+.nav.navOpen {
+    display: flex;
 }
 
-.nav a {
+.nav a,
+.nav .user,
+.nav .logoutButton {
+    justify-content: center;
+    text-align: center;
+    line-height: 1.14;
+    margin: 0 auto;
+    border: none;
     text-decoration: none;
-    color: #333;
-    white-space: nowrap; /* Ensure no wrapping */
+    color: #000;
+    white-space: nowrap;
 }
 
 .nav a:hover {
-    text-decoration: none;
     border-bottom: 1px solid #ff6b09;
     transition: border-color 0.2s, color 0.2s;
 }
 
-.user {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+/* MOBILE FIRST — скрываем divider */
+.divider {
+    display: none;
 }
 
-.user span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: #ffffff;
-    font-weight: bold;
+/* Показываем divider только при открытом мобильном меню */
+@media only screen and (max-width: 767px) {
+    .nav.navOpen .divider {
+        display: flex;
+        width: 100%;
+        background-color: #e2e3e5;
+    }
 }
 
 .logoutButton {
@@ -60,86 +132,138 @@
     justify-content: center;
 }
 
-.hamburgerMenu {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    width: 20px; /* Container size */
-    height: 20px; /* Icon size */
-    display: none; /* Hidden by default on desktop */
-    align-items: center;
-    justify-content: center;
+.menuOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    background: #fff;
+    z-index: 1000;
+    display: none;
+    transition: opacity 0.3s;
+}
+.menuOverlay.menuOverlayOpen {
+    display: block;
+    opacity: 1;
 }
 
-/* Mobile styles */
-@media (max-width: 768px) {
-    .logo {
-        z-index: 1103; /* еще выше */
-        position: relative;
-    }
+body.noScroll {
+    overflow: hidden;
+}
 
-    .menuOverlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100%;
-        background: #fff;
-        z-index: 1000;
-        display: none;
-        transition: opacity 0.3s;
-    }
-    .menuOverlay.menuOverlayOpen {
-        display: block;
-        opacity: 1;
-    }
+/* MOBILE FIRST — показываем только userMobile */
+.userMobile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.userDesktop {
+    display: none;
+}
 
+/* TABLET и DESKTOP — показываем только userDesktop */
+@media only screen and (min-width: 768px) {
+    .container {
+        max-width: 768px;
+        padding: 0 32px;
+    }
+    .header {
+        padding: 0 16px;
+    }
+    .headerGuest {
+        justify-content: space-between;
+        padding: 26px 32px;
+        border-bottom: 1px solid #e2e3e5;
+    }
     .nav {
-        display: none;
-        flex-direction: column;
-        position: fixed;
-        top: 96px; /* ниже хедера */
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: transparent;
-        z-index: 1001;
-        justify-content: flex-start;
+        position: static;
+        display: flex;
+        flex-direction: row;
         align-items: center;
-        gap: 56px;
+        gap: 60px;
+        height: auto;
+        width: auto;
+        background-color: transparent;
         padding: 0;
+    }
+    .nav a,
+    .nav .user,
+    .nav .logoutButton {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.33;
     }
     .nav.navOpen {
         display: flex;
     }
-
-    .nav a,
-    .nav .user,
-    .nav .logoutButton {
-        justify-content: center;
-        text-align: center;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 1.14;
-        margin: 0 auto;
-        border: none;
-    }
-
     .hamburgerMenu {
+        display: none;
+    }
+    .logoRow {
+        width: auto;
+    }
+    .rightBlock {
+        gap: 20px;
+    }
+    .user {
+        margin-right: 20px;
+    }
+    .verticalDivider {
+        display: none;
+    }
+    .verticalDividerTablet {
+        height: 68px;
+        background-color: #e2e3e5;
+        width: 1px;
+    }
+    .userMobile {
+        display: none;
+    }
+    .userDesktop {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .userDesktop span {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+        line-height: 1.15;
+        border-radius: 100%;
+        color: #555;
+        fill: #fff;
+        box-shadow: 0 1px 1px 0 rgba(18, 29, 46, 0.1);
         display: flex;
         align-items: center;
         justify-content: center;
-        z-index: 1100;
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-        width: 40px;
-        height: 40px;
     }
+    .userDesktop p {
+        line-height: 1.15;
+        color: #000;
+    }
+}
 
-    body.noScroll {
-        overflow: hidden;
+/* DESKTOP STYLES */
+@media only screen and (min-width: 1280px) {
+    .container {
+        max-width: 1280px;
+        padding: 0 16px;
+    }
+    .header {
+        padding: 0 16px;
+    }
+    .nav {
+        gap: 80px;
+    }
+    .nav a,
+    .nav .user,
+    .nav .logoutButton {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.14;
+    }
+    .headerGuest {
+        padding: 20px 16px;
     }
 }

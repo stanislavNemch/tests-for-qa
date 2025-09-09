@@ -36,22 +36,52 @@ const Header = () => {
         };
     }, [isMenuOpen]);
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth > 767 && isMenuOpen) {
+                setIsMenuOpen(false);
+            }
+        };
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, [isMenuOpen]);
+
     return (
-        <header className={css.header}>
-            <Link to="/" className={css.logo}>
-                <img
-                    src={logoUrl}
-                    alt="ProTest Logo"
-                    className={css.logoIcon}
-                />
-            </Link>
-            <button className={css.hamburgerMenu} onClick={toggleMenu}>
-                {isMenuOpen ? (
-                    <IoMdClose size={28} />
-                ) : (
-                    <GiHamburgerMenu size={20} />
+        <header
+            className={
+                isLoggedIn ? css.header : `${css.header} ${css.headerGuest}`
+            }
+        >
+            <div className={css.logoRow}>
+                <Link to="/" className={css.logo}>
+                    <img
+                        src={logoUrl}
+                        alt="ProTest Logo"
+                        className={css.logoIcon}
+                    />
+                </Link>
+            </div>
+            <div className={css.rightBlock}>
+                {/* Мобильный user-блок */}
+                {isLoggedIn && user && (
+                    <div className={css.userMobile}>
+                        <span>{user?.email[0].toUpperCase()}</span>
+                    </div>
                 )}
-            </button>
+                <div className={css.verticalDivider}>
+                    <svg width="1" height="68">
+                        <use xlinkHref="#divider-line" />
+                    </svg>
+                </div>
+                {/* Кнопка гамбургера */}
+                <button className={css.hamburgerMenu} onClick={toggleMenu}>
+                    {isMenuOpen ? (
+                        <IoMdClose size={28} />
+                    ) : (
+                        <GiHamburgerMenu size={20} />
+                    )}
+                </button>
+            </div>
             {/* Оверлей и меню */}
             <div
                 className={`${css.menuOverlay} ${
@@ -65,25 +95,50 @@ const Header = () => {
                         <Link to="/" onClick={closeMenu}>
                             Home
                         </Link>
+                        <div className={css.divider}>
+                            <svg width="100%" height="1">
+                                <use xlinkHref="#divider-line" />
+                            </svg>
+                        </div>
                         <Link to="/useful-info" onClick={closeMenu}>
                             Materials
                         </Link>
+                        <div className={css.divider}>
+                            <svg width="100%" height="1">
+                                <use xlinkHref="#divider-line" />
+                            </svg>
+                        </div>
                         <Link to="/contacts" onClick={closeMenu}>
                             Contacts
                         </Link>
-                        <div className={css.user}>
-                            <span>{user?.email[0].toUpperCase()}</span>
-                            <p>{user?.email.split("@")[0]}</p>
+                        <div className={css.divider}>
+                            <svg width="100%" height="1">
+                                <use xlinkHref="#divider-line" />
+                            </svg>
                         </div>
-                        <button
-                            onClick={() => {
-                                logout();
-                                closeMenu();
-                            }}
-                            className={css.logoutButton}
-                        >
-                            <IoIosLogOut size={16} />
-                        </button>
+                        {/* Планшет/десктоп user-блок */}
+                        <div className={css.rightBlock}>
+                            <div className={css.userDesktop}>
+                                <span>{user?.email[0].toUpperCase()}</span>
+                                <p>{user?.email.split("@")[0]}</p>
+                            </div>
+                            {!isMenuOpen && (
+                                <div className={css.verticalDividerTablet}>
+                                    <svg width="1" height="68">
+                                        <use xlinkHref="#divider-line" />
+                                    </svg>
+                                </div>
+                            )}
+                            <button
+                                onClick={() => {
+                                    logout();
+                                    closeMenu();
+                                }}
+                                className={css.logoutButton}
+                            >
+                                <IoIosLogOut size={16} />
+                            </button>
+                        </div>
                     </>
                 ) : (
                     <Link to="/contacts" onClick={closeMenu}>
