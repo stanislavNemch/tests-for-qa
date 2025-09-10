@@ -71,6 +71,7 @@
         font-size: 14px;
         line-height: 1.57;
         margin-left: 83px;
+        max-width: 260px;
     }
 }
 
