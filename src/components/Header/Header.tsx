@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import css from "./Header.module.css";
 import logoUrl from "../../assets/logo.svg";
@@ -92,25 +92,49 @@ const Header = () => {
             <nav className={`${css.nav} ${isMenuOpen ? css.navOpen : ""}`}>
                 {isLoggedIn ? (
                     <>
-                        <Link to="/" onClick={closeMenu}>
+                        <NavLink
+                            to="/"
+                            onClick={closeMenu}
+                            className={({ isActive }) =>
+                                isActive
+                                    ? `${css.link} ${css.active}`
+                                    : css.link
+                            }
+                        >
                             Home
-                        </Link>
+                        </NavLink>
                         <div className={css.divider}>
                             <svg width="100%" height="1">
                                 <use xlinkHref="#divider-line" />
                             </svg>
                         </div>
-                        <Link to="/useful-info" onClick={closeMenu}>
+                        <NavLink
+                            to="/useful-info"
+                            onClick={closeMenu}
+                            className={({ isActive }) =>
+                                isActive
+                                    ? `${css.link} ${css.active}`
+                                    : css.link
+                            }
+                        >
                             Materials
-                        </Link>
+                        </NavLink>
                         <div className={css.divider}>
                             <svg width="100%" height="1">
                                 <use xlinkHref="#divider-line" />
                             </svg>
                         </div>
-                        <Link to="/contacts" onClick={closeMenu}>
+                        <NavLink
+                            to="/contacts"
+                            onClick={closeMenu}
+                            className={({ isActive }) =>
+                                isActive
+                                    ? `${css.link} ${css.active}`
+                                    : css.link
+                            }
+                        >
                             Contacts
-                        </Link>
+                        </NavLink>
                         <div className={css.divider}>
                             <svg width="100%" height="1">
                                 <use xlinkHref="#divider-line" />

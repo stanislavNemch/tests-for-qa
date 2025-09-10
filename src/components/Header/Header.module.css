@@ -91,6 +91,7 @@
     display: flex;
 }
 
+.nav .link,
 .nav a,
 .nav .user,
 .nav .logoutButton {
@@ -102,11 +103,15 @@
     text-decoration: none;
     color: #000;
     white-space: nowrap;
+    transition: border-color 0.2s, color 0.2s;
 }
 
 .nav a:hover {
     border-bottom: 1px solid #ff6b09;
-    transition: border-color 0.2s, color 0.2s;
+}
+
+.link.active {
+    border-bottom: 1px solid #ff6b09;
 }
 
 /* MOBILE FIRST — скрываем divider */
