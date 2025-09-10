@@ -8,17 +8,14 @@
 /* Этот класс заставит основной контент занять всё доступное пространство */
 .container {
     flex: 1 1 auto;
-    max-width: 320px;
+    max-width: 380px;
     padding: 0 20px;
     margin: 0 auto;
     width: 100%;
     /* Добавляем flex-свойства для центрирования дочерних элементов */
     display: flex;
     align-items: center;
-    justify-content: center;
 }
-
-
 
 /* tablet styles */
 @media only screen and (min-width: 768px) {

@@ -1,19 +1,77 @@
+.bgUseful {
+    background: url("/img/background_useful_mobile.webp") no-repeat right top;
+    background-size: cover;
+    background-position: right top;
+    background-clip: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.divider {
+    width: 150px;
+    height: 2px;
+    background-color: #e2e3e5;
+    margin-bottom: 8px;
+}
+
 .infoContainer {
-    padding: 40px 20px;
+    padding: 40px 93px 117px 20px;
+    max-width: 375px;
+    margin: 0 auto;
 }
 
 .title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 30px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.22;
+    color: #000;
+    margin-bottom: 12px;
 }
 
-.infoSection {
-    margin-bottom: 30px;
+.literatureSection {
+    margin-bottom: 32px;
 }
 
-.sectionTitle {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 15px;
+.list {
+    list-style-type: number;
+    padding-left: 0;
+    list-style-position: inside;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 1.6;
+    color: #000;
+    max-width: 207px;
+}
+
+/* TABLET и DESKTOP — показываем только userDesktop */
+@media only screen and (min-width: 768px) {
+    .bgUseful {
+        background: url("/img/background_useful_tablet.webp") no-repeat right
+            top;
+        background-size: cover;
+        background-position: right top;
+        background-clip: border-box;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    .infoContainer {
+        padding: 180px 400px 356px 32px;
+        max-width: 768px;
+    }
+}
+
+/* DESKTOP STYLES */
+@media only screen and (min-width: 1280px) {
+    .bgUseful {
+        background: url("/img/background_useful_desk.webp") no-repeat right top;
+        background-size: cover;
+        background-position: right top;
+        background-clip: border-box;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    .infoContainer {
+        padding: 100px 981px 272px 123px;
+        max-width: 1440px;
+    }
 }
