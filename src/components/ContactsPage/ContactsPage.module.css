@@ -2,24 +2,78 @@
     padding: 40px 20px;
 }
 
-.title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 30px;
-    text-align: center;
+.divider {
+    margin: 0 auto 20px;
+    width: 130px;
+    height: 2px;
+    background-color: #e2e3e5;
 }
 
-.cardList {
+.title {
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+    color: #000;
+    margin-bottom: 14px;
+}
+
+.cardListMobile {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 20px;
+    align-items: center;
+}
+
+.cardListTablet {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-items: center;
+}
+
+.cardListDesktop {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 20px;
+    justify-items: center;
+    align-items: start;
+}
+
+.loadMoreBtn {
+    margin: 24px auto 0;
+    display: block;
+    padding: 10px 24px;
+    font-size: 16px;
+    background: #ff6b09;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.loadMoreBtn:hover,
+.loadMoreBtn:focus {
+    background: #e65c00;
+}
+
+.cardListMobile,
+.cardListTablet,
+.cardListDesktop {
     justify-content: center;
+    align-items: flex-start;
 }
 
 /* TABLET и DESKTOP — показываем только userDesktop */
 @media only screen and (min-width: 768px) {
-}
+    .divider {
+        margin: 0 auto 40px;
+        width: 322px;
+        background-color: #e2e3e5;
+    }
 
-/* DESKTOP STYLES */
-@media only screen and (min-width: 1280px) {
+    .title {
+        font-size: 22px;
+    }
 }
