@@ -4,16 +4,16 @@ import css from "./ContactsPage.module.css";
 const ContactsPage = () => {
     const developers = [
         {
+            picture: "https://via.placeholder.com/150",
             name: "Developer 1",
             role: "Frontend Developer",
-            email: "dev1@example.com",
-            linkedin: "https://www.linkedin.com/in/dev1",
+            info: "Some additional information about Developer 1",
         },
         {
+            picture: "https://via.placeholder.com/150",
             name: "Developer 2",
             role: "Backend Developer",
-            email: "dev2@example.com",
-            linkedin: "https://www.linkedin.com/in/dev2",
+            info: "Some additional information about Developer 2",
         },
     ];
 
