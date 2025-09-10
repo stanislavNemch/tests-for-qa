@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import type { TestResult } from "../types/auth";
 import Diagram from "../Diagram/Diagram";
@@ -8,6 +9,14 @@ const ResultsPage = () => {
     const results = location.state?.results as TestResult | undefined;
     const totalQuestions = location.state?.totalQuestions as number | undefined;
     const taskName = location.state?.taskName as string | undefined;
+
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     if (!results || totalQuestions === undefined) {
         return <div>No results to display.</div>;
@@ -42,6 +51,9 @@ const ResultsPage = () => {
                     <Diagram
                         correctAnswers={correctAnswers}
                         incorrectAnswers={incorrectAnswers}
+                        width={isMobile ? 156 : 300}
+                        height={isMobile ? 156 : 300}
+                        radius={isMobile ? 70 : 143}
                     />
                     <div className={css.answerCounts}>
                         {legendData.map((entry, index) => (

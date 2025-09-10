@@ -2,6 +2,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    padding: 0;
+}
+
+@media (max-width: 767px) {
+    .diagramContainer {
+        max-width: 156px;
+        min-width: 156px;
+        min-height: 156px;
+        height: 156px;
+        margin: 0 auto;
+        padding: 0;
+        overflow: visible;
+    }
 }
 
 /* tablet styles */

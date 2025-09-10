@@ -4,11 +4,17 @@ import css from "./Diagram.module.css";
 interface DiagramProps {
     correctAnswers: number;
     incorrectAnswers: number;
+    width?: number;
+    height?: number;
+    radius?: number;
 }
 
 const Diagram: React.FC<DiagramProps> = ({
     correctAnswers,
     incorrectAnswers,
+    width = 300,
+    height = 300,
+    radius = 143,
 }) => {
     const data = [
         { name: "Correct", value: correctAnswers },
@@ -19,13 +25,13 @@ const Diagram: React.FC<DiagramProps> = ({
 
     return (
         <div className={css.diagramContainer}>
-            <PieChart width={300} height={300}>
+            <PieChart width={width} height={height}>
                 <Pie
                     data={data}
-                    cx={143}
-                    cy={143}
+                    cx={width / 2}
+                    cy={height / 2}
                     labelLine={false}
-                    outerRadius={143}
+                    outerRadius={radius}
                     fill="#8884d8"
                     dataKey="value"
                 >
