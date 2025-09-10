@@ -55,8 +55,22 @@
         overflow-y: auto;
     }
     .infoContainer {
-        padding: 180px 400px 356px 32px;
+        padding: 180px 340px 356px 16px;
         max-width: 768px;
+    }
+    .title {
+        font-size: 22px;
+        line-height: 1.37;
+        margin-bottom: 20px;
+    }
+    .divider {
+        width: 336px;
+        margin-bottom: 24px;
+    }
+    .list {
+        font-size: 14px;
+        line-height: 1.57;
+        margin-left: 83px;
     }
 }
 
@@ -71,7 +85,7 @@
         overflow-y: auto;
     }
     .infoContainer {
-        padding: 100px 981px 272px 123px;
+        padding: 100px 880px 272px 16px;
         max-width: 1440px;
     }
 }
