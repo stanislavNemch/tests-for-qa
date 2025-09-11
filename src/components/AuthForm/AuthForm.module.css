@@ -3,8 +3,9 @@
     padding: 12px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
-    border-radius: 5px;
     box-sizing: border-box;
+    font-weight: 500;
+    font-size: 14px;
 }
 
 .buttons {
@@ -15,16 +16,19 @@
 .mainButton,
 .secondaryButton {
     flex: 1;
-    padding: 12px 20px;
-    border-radius: 5px;
+    padding: 25px 25px;
     border: none;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    text-align: center;
     transition: background-color 0.2s, color 0.2s;
 }
 
 .mainButton {
-    background-color: #ff751d;
+    background-color: #ff6b09;
     color: white;
 }
 
@@ -40,4 +44,14 @@
 
 .secondaryButton:hover {
     background-color: #f1f1f1;
+}
+
+/* Адаптив */
+@media only screen and (min-width: 768px) {
+    .mainButton,
+    .secondaryButton {
+        font-size: 12px;
+        padding: 23px 78px;
+        text-wrap: nowrap;
+    }
 }

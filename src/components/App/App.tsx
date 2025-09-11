@@ -53,14 +53,7 @@ function AppContent() {
                             </PrivateRoute>
                         }
                     />
-                    <Route
-                        path="/contacts"
-                        element={
-                            <PrivateRoute>
-                                <ContactsPage />
-                            </PrivateRoute>
-                        }
-                    />
+                    <Route path="/contacts" element={<ContactsPage />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </main>
