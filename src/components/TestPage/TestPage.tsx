@@ -5,49 +5,108 @@ import type { Question, Answer } from "../types/auth";
 import css from "./TestPage.module.css";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import QuestionCard from "../QuestionCard/QuestionCard";
-import toast from "react-hot-toast"; // Используем react-hot-toast
+import toast from "react-hot-toast";
+import { useAuth } from "../context/AuthContext";
+
+// Определяем структуру нашей сессии в localStorage
+interface TestSession {
+    questions: Question[];
+    userAnswers: Answer[];
+}
 
 const TestPage = () => {
     const { testType } = useParams<{ testType: string }>();
     const navigate = useNavigate();
+    const { user } = useAuth();
+
     const [questions, setQuestions] = useState<Question[]>([]);
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [userAnswers, setUserAnswers] = useState<Answer[]>([]);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
 
+    // Ключ для хранения сессии стал более говорящим
+    const storageKey = `testSession-${user?.id}-${testType}`;
+
     useEffect(() => {
-        const fetchQuestions = async () => {
+        const loadTest = async () => {
             setIsLoading(true);
+            const savedSessionJSON = localStorage.getItem(storageKey);
+
+            if (savedSessionJSON) {
+                // Сценарий 1: Сессия найдена в localStorage
+                try {
+                    const savedSession: TestSession =
+                        JSON.parse(savedSessionJSON);
+                    setQuestions(savedSession.questions);
+                    setUserAnswers(savedSession.userAnswers);
+                    toast.success(
+                        "Your previous test progress has been restored."
+                    );
+                } catch {
+                    toast.error(
+                        "Could not restore session, starting a new test."
+                    );
+                    localStorage.removeItem(storageKey);
+                    await fetchAndStartNewTest(); // Загружаем новый тест, если старый "сломан"
+                }
+            } else {
+                // Сценарий 2: Сессии нет, начинаем новый тест
+                await fetchAndStartNewTest();
+            }
+            setIsLoading(false);
+        };
+
+        const fetchAndStartNewTest = async () => {
             try {
                 const response = await (testType === "tech"
                     ? authService.getTechQuestions()
                     : authService.getTheoryQuestions());
-                setQuestions(response.data);
+
+                const newQuestions = response.data;
+                const newSession: TestSession = {
+                    questions: newQuestions,
+                    userAnswers: [],
+                };
+
+                setQuestions(newQuestions);
+                setUserAnswers([]); // Начинаем с пустыми ответами
+                localStorage.setItem(storageKey, JSON.stringify(newSession));
             } catch {
                 toast.error("Failed to fetch questions. Please try again.");
-            } finally {
-                setIsLoading(false);
+                // Если не удалось загрузить вопросы, оставляем массив пустым
+                setQuestions([]);
             }
         };
 
-        fetchQuestions();
-    }, [testType]);
+        loadTest();
+    }, [storageKey, testType]); // Убрали зависимость от testType, чтобы не перезапускать тест при каждом рендере
 
     const handleAnswerChange = (answer: string) => {
         const newAnswer: Answer = {
             questionId: questions[currentQuestionIndex].questionId,
             answer,
         };
+
+        let updatedAnswers;
         const existingAnswerIndex = userAnswers.findIndex(
             (a) => a.questionId === newAnswer.questionId
         );
-        const updatedAnswers = [...userAnswers];
+
         if (existingAnswerIndex > -1) {
+            updatedAnswers = [...userAnswers];
             updatedAnswers[existingAnswerIndex] = newAnswer;
         } else {
-            updatedAnswers.push(newAnswer);
+            updatedAnswers = [...userAnswers, newAnswer];
         }
+
         setUserAnswers(updatedAnswers);
+
+        // Обновляем сессию в localStorage при каждом ответе
+        const updatedSession: TestSession = {
+            questions,
+            userAnswers: updatedAnswers,
+        };
+        localStorage.setItem(storageKey, JSON.stringify(updatedSession));
     };
 
     const handleNextQuestion = () => {
@@ -64,7 +123,6 @@ const TestPage = () => {
 
     const finishAndGoToResults = async () => {
         if (userAnswers.length < questions.length) {
-            // Используем кастомный toast для предупреждения
             toast("Please answer all questions before finishing the test.", {
                 icon: "⚠️",
             });
@@ -75,7 +133,10 @@ const TestPage = () => {
             const response = await (testType === "tech"
                 ? authService.sendTechResults(userAnswers)
                 : authService.sendTheoryResults(userAnswers));
+
             toast.success("Test completed successfully!");
+            localStorage.removeItem(storageKey); // Очищаем хранилище
+
             navigate("/results", {
                 state: {
                     results: response.data,
@@ -92,19 +153,18 @@ const TestPage = () => {
     };
 
     const handleFinishTestEarly = () => {
-        // Простое уведомление
-        toast("Test interrupted, returning to the main page.");
+        toast("Your progress is saved. Returning to the main page.");
         navigate("/");
     };
 
     if (isLoading) {
-        return <div className={css.loading}>Loading questions...</div>;
+        return <div className={css.loading}>Loading test...</div>;
     }
 
-    if (questions.length === 0) {
+    if (!questions || questions.length === 0) {
         return (
             <div className={css.noQuestions}>
-                No questions available for this test.
+                Could not load questions for this test.
             </div>
         );
     }
