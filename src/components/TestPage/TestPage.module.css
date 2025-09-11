@@ -8,12 +8,20 @@
     align-items: center;
 }
 
+.loading,
+.noQuestions {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+    margin-top: 50px;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    max-width: 860px; /* Та же ширина, что и у карточки вопроса */
+    max-width: 860px;
     margin-bottom: 24px;
 }
 
@@ -28,18 +36,17 @@
 
 .finishButton {
     padding: 10px 20px;
-    background-color: transparent;
-    color: #555;
-    border: 1px solid #ccc;
+    background-color: #ff6b09;
+    color: white;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
     font-weight: 500;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease;
 }
 
 .finishButton:hover {
-    background-color: #f0f0f0;
-    border-color: #bbb;
+    background-color: #e05a00;
 }
 
 .controls {
@@ -59,11 +66,18 @@
     cursor: pointer;
     font-weight: 500;
     transition: all 0.3s ease;
+    min-width: 180px;
+    justify-content: center;
 }
 
+/* Инвертируем цвета кнопок */
 .prevButton {
-    background: transparent;
-    color: #555;
+    background: #ff6b09;
+    color: white;
+}
+.prevButton:hover:not(:disabled) {
+    background-color: #e05a00;
+    color: white;
 }
 
 .prevButton:hover:not(:disabled) {
@@ -76,15 +90,21 @@
 }
 
 .nextButton {
-    background: #ff6b09;
-    color: white;
+    background: transparent;
+    color: #555;
+    border: 1px solid #ccc;
 }
-
 .nextButton:hover {
-    background-color: #e05a00;
+    background-color: #f0f0f0;
+    color: #000;
+    border-color: #bbb;
 }
 
-/* Tablet */
+.buttonText {
+    display: block;
+}
+
+/* Tablet and Mobile styles */
 @media only screen and (max-width: 768px) {
     .testContainer {
         padding: 24px 16px;
@@ -92,9 +112,20 @@
     .header {
         margin-bottom: 20px;
     }
+
+    /* Скрываем текст и делаем кнопки компактными */
+    .buttonText {
+        display: none;
+    }
+    .button {
+        min-width: unset;
+        width: 60px; /* Ширина кнопки-иконки */
+        height: 40px; /* Высота кнопки-иконки */
+        padding: 0;
+    }
 }
 
-/* Mobile */
+/* Mobile-specific adjustments */
 @media only screen and (max-width: 480px) {
     .header {
         flex-direction: column;
@@ -109,13 +140,5 @@
     .finishButton {
         width: 100%;
         padding: 12px;
-        background-color: #ff6b09;
-        color: white;
-        border: none;
-    }
-
-    .controls {
-        /* В мобильном макете кнопки навигации отсутствуют, но оставим их для удобства */
-        /* display: none; */
     }
 }

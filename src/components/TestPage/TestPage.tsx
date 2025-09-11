@@ -4,7 +4,8 @@ import { authService } from "../services/authService";
 import type { Question, Answer } from "../types/auth";
 import css from "./TestPage.module.css";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
-import QuestionCard from "../QuestionCard/QuestionCard"; // Импортируем новый компонент
+import QuestionCard from "../QuestionCard/QuestionCard";
+import toast from "react-hot-toast"; // Используем react-hot-toast
 
 const TestPage = () => {
     const { testType } = useParams<{ testType: string }>();
@@ -22,8 +23,8 @@ const TestPage = () => {
                     ? authService.getTechQuestions()
                     : authService.getTheoryQuestions());
                 setQuestions(response.data);
-            } catch (error) {
-                console.error("Failed to fetch questions:", error);
+            } catch {
+                toast.error("Failed to fetch questions. Please try again.");
             } finally {
                 setIsLoading(false);
             }
@@ -62,10 +63,19 @@ const TestPage = () => {
     };
 
     const finishAndGoToResults = async () => {
+        if (userAnswers.length < questions.length) {
+            // Используем кастомный toast для предупреждения
+            toast("Please answer all questions before finishing the test.", {
+                icon: "⚠️",
+            });
+            return;
+        }
+
         try {
             const response = await (testType === "tech"
                 ? authService.sendTechResults(userAnswers)
                 : authService.sendTheoryResults(userAnswers));
+            toast.success("Test completed successfully!");
             navigate("/results", {
                 state: {
                     results: response.data,
@@ -76,22 +86,27 @@ const TestPage = () => {
                             : "Testing theory",
                 },
             });
-        } catch (error) {
-            console.error("Failed to send test results:", error);
+        } catch {
+            toast.error("Failed to send test results. Please try again.");
         }
     };
 
     const handleFinishTestEarly = () => {
-        // Просто перенаправляем на главную страницу без отправки результатов
+        // Простое уведомление
+        toast("Test interrupted, returning to the main page.");
         navigate("/");
     };
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <div className={css.loading}>Loading questions...</div>;
     }
 
     if (questions.length === 0) {
-        return <div>No questions available for this test.</div>;
+        return (
+            <div className={css.noQuestions}>
+                No questions available for this test.
+            </div>
+        );
     }
 
     const currentQuestion = questions[currentQuestionIndex];
@@ -133,7 +148,7 @@ const TestPage = () => {
                     className={`${css.button} ${css.prevButton}`}
                 >
                     <GoArrowLeft size={20} />
-                    Previous question
+                    <span className={css.buttonText}>Previous question</span>
                 </button>
                 <button
                     onClick={
@@ -141,10 +156,16 @@ const TestPage = () => {
                             ? finishAndGoToResults
                             : handleNextQuestion
                     }
-                    className={`${css.button} ${css.nextButton}`}
+                    className={
+                        isLastQuestion
+                            ? `${css.button} ${css.finishButton}`
+                            : `${css.button} ${css.nextButton}`
+                    }
                 >
-                    {isLastQuestion ? "Finish Test" : "Next question"}
-                    {!isLastQuestion && <GoArrowRight size={20} />}
+                    <span className={css.buttonText}>
+                        {isLastQuestion ? "Finish Test" : "Next question"}
+                    </span>
+                    <GoArrowRight size={20} />
                 </button>
             </div>
         </div>
