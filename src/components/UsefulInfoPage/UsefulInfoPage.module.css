@@ -1,4 +1,4 @@
-.bgUseful {
+.infoPage {
     background: linear-gradient(
             0deg,
             rgba(245, 246, 251, 0.25),
@@ -19,7 +19,7 @@
     margin-bottom: 8px;
 }
 
-.infoContainer {
+.container {
     padding: 40px 93px 117px 20px;
     max-width: 375px;
     margin: 0 auto;
@@ -50,7 +50,7 @@
 
 /* Tablet */
 @media only screen and (min-width: 768px) {
-    .bgUseful {
+    .infoPage {
         background: linear-gradient(
                 0deg,
                 rgba(245, 246, 251, 0.35),
@@ -63,7 +63,7 @@
         overflow-x: hidden;
         overflow-y: auto;
     }
-    .infoContainer {
+    .container {
         padding: 180px 340px 356px 16px;
         max-width: 768px;
     }
@@ -86,7 +86,7 @@
 
 /* Desktop */
 @media only screen and (min-width: 1280px) {
-    .bgUseful {
+    .infoPage {
         background: linear-gradient(
                 0deg,
                 rgba(245, 246, 251, 0.35),
@@ -99,7 +99,7 @@
         overflow-x: hidden;
         overflow-y: auto;
     }
-    .infoContainer {
+    .container {
         padding: 100px 880px 272px 16px;
         max-width: 1440px;
     }

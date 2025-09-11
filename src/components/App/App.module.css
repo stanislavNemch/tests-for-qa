@@ -1,9 +1,3 @@
-.appWrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
 /* Этот класс заставит основной контент занять всё доступное пространство */
 .container {
     flex: 1 1 auto;

@@ -1,10 +1,15 @@
 /* MOBILE FIRST — базовые стили для мобильных устройств */
-.header {
+.navbar {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
-    border-bottom: 1px solid #e0e0e0;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .logo {
@@ -173,12 +178,11 @@ body.noScroll {
 @media only screen and (min-width: 768px) {
     .container {
         max-width: 768px;
-        padding: 0 32px;
-    }
-    .header {
         padding: 0 16px;
     }
-    .headerGuest {
+    .navbar {
+    }
+    .navbarGuest {
         justify-content: space-between;
         padding: 26px 32px;
         border-bottom: 1px solid #e2e3e5;
@@ -257,8 +261,7 @@ body.noScroll {
         max-width: 1280px;
         padding: 0 16px;
     }
-    .header {
-        padding: 0 16px;
+    .navbar {
     }
     .nav {
         gap: 80px;
@@ -270,7 +273,7 @@ body.noScroll {
         font-weight: 400;
         line-height: 1.14;
     }
-    .headerGuest {
+    .navbarGuest {
         padding: 20px 16px;
     }
 }

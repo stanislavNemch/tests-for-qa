@@ -1,4 +1,4 @@
-.authContainer {
+.container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -94,7 +94,7 @@
 }
 
 @media only screen and (min-width: 1280px) {
-    .authContainer {
+    .container {
         display: flex;
         flex-direction: row;
         justify-content: center;

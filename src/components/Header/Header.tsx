@@ -47,51 +47,58 @@ const Header = () => {
     }, [isMenuOpen]);
 
     return (
-        <header
-            className={
-                isLoggedIn ? css.header : `${css.header} ${css.headerGuest}`
-            }
-        >
-            <div className={css.logoRow}>
-                <Link to="/" className={css.logo}>
-                    <img
-                        src={logoUrl}
-                        alt="ProTest Logo"
-                        className={css.logoIcon}
-                    />
-                </Link>
-            </div>
-            <div className={css.rightBlock}>
-                {/* Мобильный user-блок */}
-                {isLoggedIn && user && (
-                    <div className={css.userMobile}>
-                        <span>{user?.email[0].toUpperCase()}</span>
+        <header>
+            <section
+                className={
+                    isLoggedIn ? css.navbar : `${css.navbar} ${css.navbarGuest}`
+                }
+            >
+                <div className={css.container}>
+                    <div className={css.logoRow}>
+                        <Link to="/" className={css.logo}>
+                            <img
+                                src={logoUrl}
+                                alt="ProTest Logo"
+                                className={css.logoIcon}
+                            />
+                        </Link>
                     </div>
-                )}
-                <div className={css.verticalDivider}> </div>
-                {/* Кнопка гамбургера */}
-                <button className={css.hamburgerMenu} onClick={toggleMenu}>
-                    {isMenuOpen ? (
-                        <IoMdClose size={28} />
-                    ) : (
-                        <GiHamburgerMenu size={20} />
-                    )}
-                </button>
-            </div>
-            {/* Оверлей и меню */}
-            <div
-                className={`${css.menuOverlay} ${
-                    isMenuOpen ? css.menuOverlayOpen : ""
-                }`}
-                onClick={closeMenu}
-            ></div>
-            <Navigation
-                isLoggedIn={isLoggedIn}
-                user={user ?? undefined}
-                logout={logout}
-                isMenuOpen={isMenuOpen}
-                closeMenu={closeMenu}
-            />
+                    <div className={css.rightBlock}>
+                        {/* Мобильный user-блок */}
+                        {isLoggedIn && user && (
+                            <div className={css.userMobile}>
+                                <span>{user?.email[0].toUpperCase()}</span>
+                            </div>
+                        )}
+                        <div className={css.verticalDivider}> </div>
+                        {/* Кнопка гамбургера */}
+                        <button
+                            className={css.hamburgerMenu}
+                            onClick={toggleMenu}
+                        >
+                            {isMenuOpen ? (
+                                <IoMdClose size={28} />
+                            ) : (
+                                <GiHamburgerMenu size={20} />
+                            )}
+                        </button>
+                    </div>
+                    {/* Оверлей и меню */}
+                    <div
+                        className={`${css.menuOverlay} ${
+                            isMenuOpen ? css.menuOverlayOpen : ""
+                        }`}
+                        onClick={closeMenu}
+                    ></div>
+                    <Navigation
+                        isLoggedIn={isLoggedIn}
+                        user={user ?? undefined}
+                        logout={logout}
+                        isMenuOpen={isMenuOpen}
+                        closeMenu={closeMenu}
+                    />
+                </div>
+            </section>
         </header>
     );
 };

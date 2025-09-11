@@ -37,6 +37,13 @@ body {
     background-color: #f5f6fb;
 }
 
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-width: 320px;
+}
+
 html,
 body {
     min-width: 320px;

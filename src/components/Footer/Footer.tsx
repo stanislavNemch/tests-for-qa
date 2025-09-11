@@ -4,12 +4,22 @@ import { MdCopyright } from "react-icons/md";
 
 const Footer = () => {
     return (
-        <footer className={css.footer}>
-            <p className={css.footerText}>
-                <MdCopyright size={16} /> 2021 | All Rights Reserved | Developed
-                with <IoMdHeart size={16} className={css.heartIcon} /> by{" "}
-                <span className={css.textGoIT}>GoIT Students</span>
-            </p>
+        <footer>
+            <section className={css.footer}>
+                <div className={css.container}>
+                    <p className={css.footerText}>
+                        <div className={css.copyrightLine}>
+                            <MdCopyright size={16} /> 2021 | All Rights Reserved
+                            | Developed with
+                            <IoMdHeart size={16} className={css.heartIcon} />
+                        </div>
+                        <div className={css.byGoIT}>
+                            by{" "}
+                            <span className={css.textGoIT}>GoIT Students</span>
+                        </div>
+                    </p>
+                </div>
+            </section>
         </footer>
     );
 };

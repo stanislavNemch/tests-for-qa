@@ -2,8 +2,8 @@ import css from "./UsefulInfoPage.module.css";
 
 const UsefulInfoPage = () => {
     return (
-        <section className={css.bgUseful}>
-            <div className={css.infoContainer}>
+        <section className={`info ${css.infoPage}`}>
+            <div className={css.container}>
                 <div className={css.literatureSection}>
                     <h2 className={css.title}>Useful literature</h2>
                     <div className={css.divider}>

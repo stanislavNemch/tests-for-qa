@@ -45,30 +45,35 @@ const AuthPage: React.FC = () => {
     };
 
     return (
-        <div className={css.authContainer}>
-            <div className={css.authInfo}>
-                <h1 className={css.title}>Pro Test</h1>
-                <p className={css.description}>
-                    <strong>[</strong> We will help you find weak points in
-                    knowledge so that you can strengthen it. We will show you
-                    what is relevant to know for a <strong>QA Engineer</strong>{" "}
-                    and will try to make the learning process more diverse_{" "}
-                    <strong>]</strong>
-                </p>
+        <section className="auth">
+            <div className={css.container}>
+                <div className={css.authInfo}>
+                    <h1 className={css.title}>Pro Test</h1>
+                    <p className={css.description}>
+                        <strong>[</strong> We will help you find weak points in
+                        knowledge so that you can strengthen it. We will show
+                        you what is relevant to know for a{" "}
+                        <strong>QA Engineer</strong> and will try to make the
+                        learning process more diverse_ <strong>]</strong>
+                    </p>
+                </div>
+                <div className={css.formWrapper}>
+                    <p className={css.formTitle}>
+                        You can use your Google Account to authorize:
+                    </p>
+                    <button
+                        className={css.googleButton}
+                        onClick={handleGoogleAuth}
+                    >
+                        <FcGoogle size={24} /> Google
+                    </button>
+                    <p className={css.formTitle}>
+                        Or login to our app using e-mail and password:
+                    </p>
+                    <AuthForm isLogin={isLogin} setIsLogin={setIsLogin} />
+                </div>
             </div>
-            <div className={css.formWrapper}>
-                <p className={css.formTitle}>
-                    You can use your Google Account to authorize:
-                </p>
-                <button className={css.googleButton} onClick={handleGoogleAuth}>
-                    <FcGoogle size={24} /> Google
-                </button>
-                <p className={css.formTitle}>
-                    Or login to our app using e-mail and password:
-                </p>
-                <AuthForm isLogin={isLogin} setIsLogin={setIsLogin} />
-            </div>
-        </div>
+        </section>
     );
 };
 

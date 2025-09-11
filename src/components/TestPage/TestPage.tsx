@@ -176,59 +176,63 @@ const TestPage = () => {
     const isLastQuestion = currentQuestionIndex === questions.length - 1;
 
     return (
-        <div className={css.testContainer}>
-            <div className={css.header}>
-                <h2 className={css.title}>
-                    [
-                    {testType === "tech"
-                        ? "QA technical training"
-                        : "Testing theory"}
-                    _]
-                </h2>
-                <button
-                    onClick={handleFinishTestEarly}
-                    className={css.finishButton}
-                >
-                    Exit test
-                </button>
-            </div>
+        <section className="test">
+            <div className={css.container}>
+                <div className={css.header}>
+                    <h2 className={css.title}>
+                        [
+                        {testType === "tech"
+                            ? "QA technical training"
+                            : "Testing theory"}
+                        _]
+                    </h2>
+                    <button
+                        onClick={handleFinishTestEarly}
+                        className={css.finishButton}
+                    >
+                        Exit test
+                    </button>
+                </div>
 
-            <QuestionCard
-                questionData={currentQuestion}
-                currentQuestionIndex={currentQuestionIndex}
-                totalQuestions={questions.length}
-                userAnswer={currentAnswer}
-                onAnswerChange={handleAnswerChange}
-            />
+                <QuestionCard
+                    questionData={currentQuestion}
+                    currentQuestionIndex={currentQuestionIndex}
+                    totalQuestions={questions.length}
+                    userAnswer={currentAnswer}
+                    onAnswerChange={handleAnswerChange}
+                />
 
-            <div className={css.controls}>
-                <button
-                    onClick={handlePrevQuestion}
-                    disabled={currentQuestionIndex === 0}
-                    className={`${css.button} ${css.prevButton}`}
-                >
-                    <GoArrowLeft size={24} />
-                    <span className={css.buttonText}>Previous question</span>
-                </button>
-                <button
-                    onClick={
-                        isLastQuestion
-                            ? finishAndGoToResults
-                            : handleNextQuestion
-                    }
-                    className={
-                        isLastQuestion
-                            ? `${css.button} ${css.finishButton}`
-                            : `${css.button} ${css.nextButton}`
-                    }
-                >
-                    <span className={css.buttonText}>
-                        {isLastQuestion ? "Finish Test" : "Next question"}
-                    </span>
-                    <GoArrowRight size={24} />
-                </button>
+                <div className={css.controls}>
+                    <button
+                        onClick={handlePrevQuestion}
+                        disabled={currentQuestionIndex === 0}
+                        className={`${css.button} ${css.prevButton}`}
+                    >
+                        <GoArrowLeft size={24} />
+                        <span className={css.buttonText}>
+                            Previous question
+                        </span>
+                    </button>
+                    <button
+                        onClick={
+                            isLastQuestion
+                                ? finishAndGoToResults
+                                : handleNextQuestion
+                        }
+                        className={
+                            isLastQuestion
+                                ? `${css.button} ${css.finishButton}`
+                                : `${css.button} ${css.nextButton}`
+                        }
+                    >
+                        <span className={css.buttonText}>
+                            {isLastQuestion ? "Finish Test" : "Next question"}
+                        </span>
+                        <GoArrowRight size={24} />
+                    </button>
+                </div>
             </div>
-        </div>
+        </section>
     );
 };
 

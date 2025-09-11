@@ -80,31 +80,34 @@ const ContactsPage = () => {
             : developers;
 
     return (
-        <div className={css.contactsContainer}>
-            <h2 className={css.title}>Our Team</h2>
-            <div className={css.divider}></div>
-            <div
-                className={
-                    screenType === "mobile"
-                        ? css.cardListMobile
-                        : screenType === "tablet"
-                        ? css.cardListTablet
-                        : css.cardListDesktop
-                }
-            >
-                {cardsToShow.map((dev, index) => (
-                    <ContactCard key={index} {...dev} />
-                ))}
-            </div>
-            {screenType === "mobile" && visibleCount < developers.length && (
-                <button
-                    className={css.loadMoreBtn}
-                    onClick={() => setVisibleCount((c) => c + 1)}
+        <section className="contacts">
+            <div className={css.container}>
+                <h2 className={css.title}>Our Team</h2>
+                <div className={css.divider}></div>
+                <div
+                    className={
+                        screenType === "mobile"
+                            ? css.cardListMobile
+                            : screenType === "tablet"
+                            ? css.cardListTablet
+                            : css.cardListDesktop
+                    }
                 >
-                    Load more
-                </button>
-            )}
-        </div>
+                    {cardsToShow.map((dev, index) => (
+                        <ContactCard key={index} {...dev} />
+                    ))}
+                </div>
+                {screenType === "mobile" &&
+                    visibleCount < developers.length && (
+                        <button
+                            className={css.loadMoreBtn}
+                            onClick={() => setVisibleCount((c) => c + 1)}
+                        >
+                            Load more
+                        </button>
+                    )}
+            </div>
+        </section>
     );
 };
 

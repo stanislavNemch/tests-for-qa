@@ -16,7 +16,7 @@ function AppContent() {
     const { isLoading } = useAuth();
 
     return (
-        <div className={css.appWrapper}>
+        <>
             <Header />
             <main className={css.container}>
                 <Routes>
@@ -59,7 +59,7 @@ function AppContent() {
             </main>
             <Footer />
             {isLoading && <Loader />}
-        </div>
+        </>
     );
 }
 

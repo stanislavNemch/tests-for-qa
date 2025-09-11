@@ -38,62 +38,64 @@ const ResultsPage = () => {
     ];
 
     return (
-        <div className={css.resultsContainer}>
-            <h2 className={css.title}>Results</h2>
-            <div className={css.resultBox}>
-                <div className={css.resultHeader}>
-                    <p className={css.resultText}>
-                        {taskName ? `[ ${taskName}_]` : "Task not selected"}
-                    </p>
-                    <div className={css.lineContainer}></div>
-                </div>
-                <div className={css.chartAndInfo}>
-                    <Diagram
-                        correctAnswers={correctAnswers}
-                        incorrectAnswers={incorrectAnswers}
-                        width={isMobile ? 156 : 300}
-                        height={isMobile ? 156 : 300}
-                        radius={isMobile ? 70 : 143}
-                    />
-                    <div className={css.answerCounts}>
-                        {legendData.map((entry, index) => (
-                            <div key={index} className={css.legendItem}>
-                                <span
-                                    className={css.legendColorBox}
-                                    style={{ backgroundColor: entry.color }}
-                                ></span>
-                                <p>
-                                    {entry.name}: {entry.value}%
-                                </p>
+        <section className="results">
+            <div className={css.container}>
+                <h2 className={css.title}>Results</h2>
+                <div className={css.resultBox}>
+                    <div className={css.resultHeader}>
+                        <p className={css.resultText}>
+                            {taskName ? `[ ${taskName}_]` : "Task not selected"}
+                        </p>
+                        <div className={css.lineContainer}></div>
+                    </div>
+                    <div className={css.chartAndInfo}>
+                        <Diagram
+                            correctAnswers={correctAnswers}
+                            incorrectAnswers={incorrectAnswers}
+                            width={isMobile ? 156 : 300}
+                            height={isMobile ? 156 : 300}
+                            radius={isMobile ? 70 : 143}
+                        />
+                        <div className={css.answerCounts}>
+                            {legendData.map((entry, index) => (
+                                <div key={index} className={css.legendItem}>
+                                    <span
+                                        className={css.legendColorBox}
+                                        style={{ backgroundColor: entry.color }}
+                                    ></span>
+                                    <p>
+                                        {entry.name}: {entry.value}%
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div className={css.messages}>
+                        <div className={css.messageCounts}>
+                            <div>
+                                Correct answers - <span>{correctAnswers}</span>
                             </div>
-                        ))}
+                            <div className={css.verticalDivider}></div>
+                            <div>
+                                Total questions - <span>{totalQuestions}</span>
+                            </div>
+                        </div>
+                        <img
+                            src="/img/cat-love.webp"
+                            alt="Cat GoIT Logo"
+                            className={css.catImage}
+                        />
+                        <p className={css.mainMessage}>{results.mainMessage}</p>
+                        <p className={css.secondaryMessage}>
+                            {results.secondaryMessage}
+                        </p>
                     </div>
                 </div>
-                <div className={css.messages}>
-                    <div className={css.messageCounts}>
-                        <div>
-                            Correct answers - <span>{correctAnswers}</span>
-                        </div>
-                        <div className={css.verticalDivider}></div>
-                        <div>
-                            Total questions - <span>{totalQuestions}</span>
-                        </div>
-                    </div>
-                    <img
-                        src="/img/cat-love.webp"
-                        alt="Cat GoIT Logo"
-                        className={css.catImage}
-                    />
-                    <p className={css.mainMessage}>{results.mainMessage}</p>
-                    <p className={css.secondaryMessage}>
-                        {results.secondaryMessage}
-                    </p>
-                </div>
+                <Link to="/" className={css.tryAgainButton}>
+                    Try again
+                </Link>
             </div>
-            <Link to="/" className={css.tryAgainButton}>
-                Try again
-            </Link>
-        </div>
+        </section>
     );
 };
 

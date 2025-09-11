@@ -5,14 +5,17 @@
 }
 
 .heartIcon {
+    margin-left: 4px;
     vertical-align: middle;
     color: #ff6b09;
 }
 .footerText {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px;
+    gap: 0;
+    text-align: center;
     font-size: 10px;
     letter-spacing: 0.03em;
     color: rgba(255, 255, 255, 0.4);
@@ -23,9 +26,26 @@
     text-decoration-skip-ink: none;
 }
 
+.byGoIT {
+    display: block;
+    margin-top: 4px;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+}
+
 /* TABLET и DESKTOP — показываем только userDesktop */
 @media only screen and (min-width: 768px) {
     .footerText {
+        flex-direction: row;
+        gap: 4px;
         font-size: 12px;
+    }
+
+    .byGoIT {
+        margin-top: 0;
+        display: inline;
     }
 }
