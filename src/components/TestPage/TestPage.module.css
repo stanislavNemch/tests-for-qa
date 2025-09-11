@@ -67,3 +67,11 @@
 .finishButton:hover {
     background-color: #e65a5a;
 }
+
+/* Tablet */
+@media only screen and (min-width: 768px) {
+}
+
+/* Desktop */
+@media only screen and (min-width: 1280px) {
+}
