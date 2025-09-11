@@ -54,6 +54,7 @@
 .verticalDivider {
     display: flex;
     align-items: center;
+    width: 2px;
     height: 68px;
     background-color: #e2e3e5;
 }

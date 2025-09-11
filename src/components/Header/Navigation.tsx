@@ -29,11 +29,7 @@ const Navigation: React.FC<NavigationProps> = ({
                 >
                     Home
                 </NavLink>
-                <div className={css.divider}>
-                    <svg width="100%" height="1">
-                        <use xlinkHref="#divider-line" />
-                    </svg>
-                </div>
+                <div className={css.divider}> </div>
                 <NavLink
                     to="/useful-info"
                     onClick={closeMenu}
@@ -43,11 +39,7 @@ const Navigation: React.FC<NavigationProps> = ({
                 >
                     Materials
                 </NavLink>
-                <div className={css.divider}>
-                    <svg width="100%" height="1">
-                        <use xlinkHref="#divider-line" />
-                    </svg>
-                </div>
+                <div className={css.divider}></div>
                 <NavLink
                     to="/contacts"
                     onClick={closeMenu}
@@ -57,22 +49,14 @@ const Navigation: React.FC<NavigationProps> = ({
                 >
                     Contacts
                 </NavLink>
-                <div className={css.divider}>
-                    <svg width="100%" height="1">
-                        <use xlinkHref="#divider-line" />
-                    </svg>
-                </div>
+                <div className={css.divider}></div>
                 <div className={css.rightBlock}>
                     <div className={css.userDesktop}>
                         <span>{user?.email[0].toUpperCase()}</span>
                         <p>{user?.email.split("@")[0]}</p>
                     </div>
                     {!isMenuOpen && (
-                        <div className={css.verticalDividerTablet}>
-                            <svg width="1" height="68">
-                                <use xlinkHref="#divider-line" />
-                            </svg>
-                        </div>
+                        <div className={css.verticalDividerTablet}></div>
                     )}
                     <button
                         onClick={() => {

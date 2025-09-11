@@ -68,11 +68,7 @@ const Header = () => {
                         <span>{user?.email[0].toUpperCase()}</span>
                     </div>
                 )}
-                <div className={css.verticalDivider}>
-                    <svg width="1" height="68">
-                        <use xlinkHref="#divider-line" />
-                    </svg>
-                </div>
+                <div className={css.verticalDivider}> </div>
                 {/* Кнопка гамбургера */}
                 <button className={css.hamburgerMenu} onClick={toggleMenu}>
                     {isMenuOpen ? (

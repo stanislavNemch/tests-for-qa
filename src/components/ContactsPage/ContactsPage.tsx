@@ -82,11 +82,7 @@ const ContactsPage = () => {
     return (
         <div className={css.contactsContainer}>
             <h2 className={css.title}>Our Team</h2>
-            <div className={css.divider}>
-                <svg width="130px" height="2px">
-                    <use xlinkHref="#divider-line" />
-                </svg>
-            </div>
+            <div className={css.divider}></div>
             <div
                 className={
                     screenType === "mobile"
