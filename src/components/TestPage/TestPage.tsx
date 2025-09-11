@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { authService } from "../services/authService";
 import type { Question, Answer } from "../types/auth";
 import css from "./TestPage.module.css";
+import { GoArrowLeft, GoArrowRight } from "react-icons/go";
+import QuestionCard from "../QuestionCard/QuestionCard"; // Импортируем новый компонент
 
 const TestPage = () => {
     const { testType } = useParams<{ testType: string }>();
@@ -10,9 +12,11 @@ const TestPage = () => {
     const [questions, setQuestions] = useState<Question[]>([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [userAnswers, setUserAnswers] = useState<Answer[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchQuestions = async () => {
+            setIsLoading(true);
             try {
                 const response = await (testType === "tech"
                     ? authService.getTechQuestions()
@@ -20,6 +24,8 @@ const TestPage = () => {
                 setQuestions(response.data);
             } catch (error) {
                 console.error("Failed to fetch questions:", error);
+            } finally {
+                setIsLoading(false);
             }
         };
 
@@ -31,10 +37,16 @@ const TestPage = () => {
             questionId: questions[currentQuestionIndex].questionId,
             answer,
         };
-        setUserAnswers([
-            ...userAnswers.filter((a) => a.questionId !== newAnswer.questionId),
-            newAnswer,
-        ]);
+        const existingAnswerIndex = userAnswers.findIndex(
+            (a) => a.questionId === newAnswer.questionId
+        );
+        const updatedAnswers = [...userAnswers];
+        if (existingAnswerIndex > -1) {
+            updatedAnswers[existingAnswerIndex] = newAnswer;
+        } else {
+            updatedAnswers.push(newAnswer);
+        }
+        setUserAnswers(updatedAnswers);
     };
 
     const handleNextQuestion = () => {
@@ -49,7 +61,7 @@ const TestPage = () => {
         }
     };
 
-    const handleFinishTest = async () => {
+    const finishAndGoToResults = async () => {
         try {
             const response = await (testType === "tech"
                 ? authService.sendTechResults(userAnswers)
@@ -69,62 +81,72 @@ const TestPage = () => {
         }
     };
 
-    if (questions.length === 0) {
+    const handleFinishTestEarly = () => {
+        // Просто перенаправляем на главную страницу без отправки результатов
+        navigate("/");
+    };
+
+    if (isLoading) {
         return <div>Loading...</div>;
+    }
+
+    if (questions.length === 0) {
+        return <div>No questions available for this test.</div>;
     }
 
     const currentQuestion = questions[currentQuestionIndex];
     const currentAnswer = userAnswers.find(
         (a) => a.questionId === currentQuestion.questionId
     )?.answer;
+    const isLastQuestion = currentQuestionIndex === questions.length - 1;
 
     return (
         <div className={css.testContainer}>
-            <h2 className={css.title}>
-                {testType === "tech"
-                    ? "QA technical training"
-                    : "Testing theory"}
-            </h2>
-            <div className={css.questionContainer}>
-                <p className={css.questionText}>
-                    {currentQuestionIndex + 1}. {currentQuestion.question}
-                </p>
-                <ul className={css.answerList}>
-                    {currentQuestion.answers.map((answer, index) => (
-                        <li key={index}>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name={`question-${currentQuestion.questionId}`}
-                                    value={answer}
-                                    checked={currentAnswer === answer}
-                                    onChange={() => handleAnswerChange(answer)}
-                                />
-                                {answer}
-                            </label>
-                        </li>
-                    ))}
-                </ul>
+            <div className={css.header}>
+                <h2 className={css.title}>
+                    [
+                    {testType === "tech"
+                        ? "QA technical training"
+                        : "Testing theory"}
+                    _]
+                </h2>
+                <button
+                    onClick={handleFinishTestEarly}
+                    className={css.finishButton}
+                >
+                    Finish test
+                </button>
             </div>
+
+            <QuestionCard
+                questionData={currentQuestion}
+                currentQuestionIndex={currentQuestionIndex}
+                totalQuestions={questions.length}
+                userAnswer={currentAnswer}
+                onAnswerChange={handleAnswerChange}
+            />
+
             <div className={css.controls}>
                 <button
                     onClick={handlePrevQuestion}
                     disabled={currentQuestionIndex === 0}
-                    className={css.button}
+                    className={`${css.button} ${css.prevButton}`}
                 >
-                    Попереднє питання
+                    <GoArrowLeft size={20} />
+                    Previous question
                 </button>
                 <button
-                    onClick={handleNextQuestion}
-                    disabled={currentQuestionIndex === questions.length - 1}
-                    className={css.button}
+                    onClick={
+                        isLastQuestion
+                            ? finishAndGoToResults
+                            : handleNextQuestion
+                    }
+                    className={`${css.button} ${css.nextButton}`}
                 >
-                    Наступне питання
+                    {isLastQuestion ? "Finish Test" : "Next question"}
+                    {!isLastQuestion && <GoArrowRight size={20} />}
                 </button>
             </div>
-            <button onClick={handleFinishTest} className={css.finishButton}>
-                Завершити тест
-            </button>
         </div>
     );
 };

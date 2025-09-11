@@ -1,77 +1,121 @@
 .testContainer {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 860px; /* Та же ширина, что и у карточки вопроса */
+    margin-bottom: 24px;
 }
 
 .title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 30px;
-}
-
-.questionContainer {
-    width: 100%;
-    max-width: 600px;
-    padding: 30px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    margin-bottom: 30px;
-}
-
-.questionText {
-    font-size: 18px;
-    margin-bottom: 20px;
-}
-
-.answerList {
-    list-style: none;
-    padding: 0;
-}
-
-.answerList li {
-    margin-bottom: 10px;
-}
-
-.controls {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 30px;
-}
-
-.button {
-    padding: 10px 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f0f0f0;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.button:hover {
-    background-color: #e0e0e0;
+    font-family: "Montserrat SemiBold", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.21;
+    color: #555;
+    text-transform: uppercase;
 }
 
 .finishButton {
     padding: 10px 20px;
-    border: none;
+    background-color: transparent;
+    color: #555;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #ff6b6b;
-    color: white;
-    text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.2s;
+    font-weight: 500;
+    transition: all 0.2s ease;
 }
 
 .finishButton:hover {
-    background-color: #e65a5a;
+    background-color: #f0f0f0;
+    border-color: #bbb;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 860px;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.prevButton {
+    background: transparent;
+    color: #555;
+}
+
+.prevButton:hover:not(:disabled) {
+    color: #000;
+}
+
+.prevButton:disabled {
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+.nextButton {
+    background: #ff6b09;
+    color: white;
+}
+
+.nextButton:hover {
+    background-color: #e05a00;
 }
 
 /* Tablet */
-@media only screen and (min-width: 768px) {
+@media only screen and (max-width: 768px) {
+    .testContainer {
+        padding: 24px 16px;
+    }
+    .header {
+        margin-bottom: 20px;
+    }
 }
 
-/* Desktop */
-@media only screen and (min-width: 1280px) {
+/* Mobile */
+@media only screen and (max-width: 480px) {
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+    }
+
+    .title {
+        text-align: center;
+    }
+
+    .finishButton {
+        width: 100%;
+        padding: 12px;
+        background-color: #ff6b09;
+        color: white;
+        border: none;
+    }
+
+    .controls {
+        /* В мобильном макете кнопки навигации отсутствуют, но оставим их для удобства */
+        /* display: none; */
+    }
 }

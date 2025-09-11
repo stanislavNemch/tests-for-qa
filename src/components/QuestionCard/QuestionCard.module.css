@@ -1,0 +1,120 @@
+.questionBox {
+    width: 100%;
+    max-width: 860px;
+    background: #fff;
+    padding: 40px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
+    margin-bottom: 32px;
+}
+
+.questionCounter {
+    font-size: 16px;
+    text-align: center;
+    color: #000;
+    margin-bottom: 24px;
+}
+
+.currentQuestion {
+    font-weight: 700;
+    color: #ff6b09;
+}
+
+.totalQuestions {
+    font-weight: 700;
+}
+
+.questionText {
+    font-family: "Montserrat Medium", sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    text-align: center;
+    color: #000;
+    margin-bottom: 32px;
+    min-height: 58px; /* Чтобы контейнер не прыгал при смене вопроса */
+}
+
+.divider {
+    height: 2px;
+    background-color: #e2e3e5;
+    width: 100%;
+    margin-bottom: 32px;
+}
+
+.answerList {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.answerItem {
+    width: 100%;
+}
+
+.label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.radioInput {
+    display: none;
+}
+
+.customRadio {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    margin-right: 12px;
+    display: inline-block;
+    position: relative;
+    transition: border-color 0.3s;
+    flex-shrink: 0;
+}
+
+.radioInput:checked + .customRadio {
+    border-color: #ff6b09;
+}
+
+.radioInput:checked + .customRadio::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ff6b09;
+}
+
+/* Адаптивность */
+@media only screen and (max-width: 768px) {
+    .questionBox {
+        padding: 32px;
+    }
+    .questionText {
+        font-size: 18px;
+        min-height: 48px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .questionBox {
+        padding: 20px;
+    }
+    .questionCounter {
+        font-size: 14px;
+    }
+    .questionText {
+        font-size: 16px;
+    }
+    .label {
+        font-size: 14px;
+    }
+}
