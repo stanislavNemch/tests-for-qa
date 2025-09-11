@@ -1,5 +1,10 @@
 .bgUseful {
-    background: url("/img/background_useful_mobile.webp") no-repeat right top;
+    background: linear-gradient(
+            0deg,
+            rgba(245, 246, 251, 0.25),
+            rgba(245, 246, 251, 0.25)
+        ),
+        url("/img/background_useful_mobile.webp") no-repeat right top;
     background-size: cover;
     background-position: right top;
     background-clip: border-box;
@@ -43,11 +48,15 @@
     max-width: 207px;
 }
 
-/* TABLET и DESKTOP — показываем только userDesktop */
+/* Tablet */
 @media only screen and (min-width: 768px) {
     .bgUseful {
-        background: url("/img/background_useful_tablet.webp") no-repeat right
-            top;
+        background: linear-gradient(
+                0deg,
+                rgba(245, 246, 251, 0.35),
+                rgba(245, 246, 251, 0.35)
+            ),
+            url("/img/background_useful_tablet.webp") no-repeat right top;
         background-size: cover;
         background-position: right top;
         background-clip: border-box;
@@ -75,10 +84,15 @@
     }
 }
 
-/* DESKTOP STYLES */
+/* Desktop */
 @media only screen and (min-width: 1280px) {
     .bgUseful {
-        background: url("/img/background_useful_desk.webp") no-repeat right top;
+        background: linear-gradient(
+                0deg,
+                rgba(245, 246, 251, 0.35),
+                rgba(245, 246, 251, 0.35)
+            ),
+            url("/img/background_useful_desk.webp") no-repeat right top;
         background-size: cover;
         background-position: right top;
         background-clip: border-box;
