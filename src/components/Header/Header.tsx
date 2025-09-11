@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import css from "./Header.module.css";
 import logoUrl from "../../assets/logo.svg";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { IoIosLogOut } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
+import Navigation from "./Navigation";
 
 const Header = () => {
     const { isLoggedIn, user, logout } = useAuth();
@@ -89,87 +89,13 @@ const Header = () => {
                 }`}
                 onClick={closeMenu}
             ></div>
-            <nav className={`${css.nav} ${isMenuOpen ? css.navOpen : ""}`}>
-                {isLoggedIn ? (
-                    <>
-                        <NavLink
-                            to="/"
-                            onClick={closeMenu}
-                            className={({ isActive }) =>
-                                isActive
-                                    ? `${css.link} ${css.active}`
-                                    : css.link
-                            }
-                        >
-                            Home
-                        </NavLink>
-                        <div className={css.divider}>
-                            <svg width="100%" height="1">
-                                <use xlinkHref="#divider-line" />
-                            </svg>
-                        </div>
-                        <NavLink
-                            to="/useful-info"
-                            onClick={closeMenu}
-                            className={({ isActive }) =>
-                                isActive
-                                    ? `${css.link} ${css.active}`
-                                    : css.link
-                            }
-                        >
-                            Materials
-                        </NavLink>
-                        <div className={css.divider}>
-                            <svg width="100%" height="1">
-                                <use xlinkHref="#divider-line" />
-                            </svg>
-                        </div>
-                        <NavLink
-                            to="/contacts"
-                            onClick={closeMenu}
-                            className={({ isActive }) =>
-                                isActive
-                                    ? `${css.link} ${css.active}`
-                                    : css.link
-                            }
-                        >
-                            Contacts
-                        </NavLink>
-                        <div className={css.divider}>
-                            <svg width="100%" height="1">
-                                <use xlinkHref="#divider-line" />
-                            </svg>
-                        </div>
-                        {/* Планшет/десктоп user-блок */}
-                        <div className={css.rightBlock}>
-                            <div className={css.userDesktop}>
-                                <span>{user?.email[0].toUpperCase()}</span>
-                                <p>{user?.email.split("@")[0]}</p>
-                            </div>
-                            {!isMenuOpen && (
-                                <div className={css.verticalDividerTablet}>
-                                    <svg width="1" height="68">
-                                        <use xlinkHref="#divider-line" />
-                                    </svg>
-                                </div>
-                            )}
-                            <button
-                                onClick={() => {
-                                    logout();
-                                    closeMenu();
-                                }}
-                                className={css.logoutButton}
-                            >
-                                <IoIosLogOut size={16} />
-                            </button>
-                        </div>
-                    </>
-                ) : (
-                    <Link to="/contacts" onClick={closeMenu}>
-                        Contacts
-                    </Link>
-                )}
-            </nav>
+            <Navigation
+                isLoggedIn={isLoggedIn}
+                user={user ?? undefined}
+                logout={logout}
+                isMenuOpen={isMenuOpen}
+                closeMenu={closeMenu}
+            />
         </header>
     );
 };
