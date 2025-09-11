@@ -19,7 +19,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
     return (
         <div className={css.questionBox}>
             <p className={css.questionCounter}>
-                Question{" "}
+                Question{"  "}
                 <span className={css.currentQuestion}>
                     {currentQuestionIndex + 1}
                 </span>

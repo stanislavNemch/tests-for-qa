@@ -129,7 +129,7 @@ const TestPage = () => {
                     onClick={handleFinishTestEarly}
                     className={css.finishButton}
                 >
-                    Finish test
+                    Exit test
                 </button>
             </div>
 
@@ -147,7 +147,7 @@ const TestPage = () => {
                     disabled={currentQuestionIndex === 0}
                     className={`${css.button} ${css.prevButton}`}
                 >
-                    <GoArrowLeft size={20} />
+                    <GoArrowLeft size={24} />
                     <span className={css.buttonText}>Previous question</span>
                 </button>
                 <button
@@ -165,7 +165,7 @@ const TestPage = () => {
                     <span className={css.buttonText}>
                         {isLastQuestion ? "Finish Test" : "Next question"}
                     </span>
-                    <GoArrowRight size={20} />
+                    <GoArrowRight size={24} />
                 </button>
             </div>
         </div>
