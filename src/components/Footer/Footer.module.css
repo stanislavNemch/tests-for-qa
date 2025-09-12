@@ -1,7 +1,11 @@
 .footer {
-    padding: 20px;
+    padding: 10px;
     text-align: center;
     background-color: #02172a;
+}
+
+.copyrightIcon {
+    vertical-align: middle;
 }
 
 .heartIcon {
@@ -38,6 +42,9 @@
 
 /* TABLET и DESKTOP — показываем только userDesktop */
 @media only screen and (min-width: 768px) {
+    .footer {
+        padding: 19px;
+    }
     .footerText {
         flex-direction: row;
         gap: 4px;
