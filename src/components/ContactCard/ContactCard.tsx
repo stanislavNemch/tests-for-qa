@@ -14,12 +14,15 @@ const ContactCard: React.FC<ContactCardProps> = ({
     picture,
 }) => {
     return (
-        <div className={css.card}>
-            <img
-                src={picture}
-                alt={`${name}'s picture`}
-                className={css.picture}
-            />
+        <div className={css.card} tabIndex={0}>
+            <div className={css.picture}>
+                <img
+                    src={picture}
+                    alt={`${name}'s picture`}
+                    className={css.pictureInner}
+                    loading="lazy"
+                />
+            </div>
             <h3 className={css.name}>{name}</h3>
             <p className={css.role}>{role}</p>
             <p className={css.contactInfo}>{info}</p>
