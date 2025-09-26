@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import "./index.css";
 import { Toaster } from "react-hot-toast";
-import { AuthProvider } from "./components/context/AuthContext.tsx";
+import { AuthProvider } from "./components/context/AuthProvider";
 import App from "./components/App/App";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

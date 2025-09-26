@@ -47,3 +47,7 @@ export interface TestResult {
     mainMessage: string;
     secondaryMessage: string;
 }
+
+export interface ApiErrorResponse {
+    message?: string;
+}

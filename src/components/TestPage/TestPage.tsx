@@ -6,7 +6,8 @@ import css from "./TestPage.module.css";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import QuestionCard from "../QuestionCard/QuestionCard";
 import toast from "react-hot-toast";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/useAuth";
+import { safeParseJSON } from "../utils/json";
 
 // Определяем структуру нашей сессии в localStorage
 interface TestSession {
@@ -34,21 +35,16 @@ const TestPage = () => {
 
             if (savedSessionJSON) {
                 // Сценарий 1: Сессия найдена в localStorage
-                try {
-                    const savedSession: TestSession =
-                        JSON.parse(savedSessionJSON);
-                    setQuestions(savedSession.questions);
-                    setUserAnswers(savedSession.userAnswers);
-                    toast.success(
-                        "Your previous test progress has been restored."
-                    );
-                } catch {
-                    toast.error(
-                        "Could not restore session, starting a new test."
-                    );
-                    localStorage.removeItem(storageKey);
-                    await fetchAndStartNewTest(); // Загружаем новый тест, если старый "сломан"
-                }
+                const savedSession = safeParseJSON<TestSession>(
+                    savedSessionJSON,
+                    {
+                        questions: [],
+                        userAnswers: [],
+                    }
+                );
+                setQuestions(savedSession.questions);
+                setUserAnswers(savedSession.userAnswers);
+                toast.success("Your previous test progress has been restored.");
             } else {
                 // Сценарий 2: Сессии нет, начинаем новый тест
                 await fetchAndStartNewTest();

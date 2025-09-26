@@ -1,41 +1,20 @@
-import React, {
-    createContext,
-    useState,
-    useContext,
-    type ReactNode,
-    useEffect,
-} from "react";
+import { useState, useEffect, type ReactNode } from "react";
 import toast from "react-hot-toast";
 import { authService } from "../services/authService";
 import type { LoginResponse, UserData } from "../types/auth";
+import { AuthContext } from "./AuthContext";
+import { safeParseJSON } from "../utils/json";
 
-// --- Интерфейсы и Типы ---
-
-interface AuthContextType {
-    isLoggedIn: boolean;
-    user: UserData | null;
-    token: string | null;
-    isLoading: boolean;
-    login: (data: LoginResponse) => void;
-    logout: () => void;
-    setIsLoading: (isLoading: boolean) => void;
+interface Props {
+    children: ReactNode;
 }
 
-// --- Создание контекста ---
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-// --- Провайдер Контекста ---
-
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({
-    children,
-}) => {
+export const AuthProvider = ({ children }: Props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [user, setUser] = useState<UserData | null>(null);
     const [token, setToken] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    // --- Вынесено выше, чтобы не было проблем с замыканиями ---
     const handleLogin = (loginData: LoginResponse) => {
         localStorage.setItem("accessToken", loginData.accessToken);
         localStorage.setItem("refreshToken", loginData.refreshToken);
@@ -58,7 +37,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
             setUser(null);
             setToken(null);
             toast.success("You have been logged out.");
-            window.location.href = "/auth"; // Redirect to auth page
+            window.location.href = "/auth";
         } catch {
             toast.error("Logout failed. Please try again.");
         } finally {
@@ -68,15 +47,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
-
-        // --- Логика обработки URL после редиректа ---
-
         const accessToken = urlParams.get("accessToken");
         const refreshToken = urlParams.get("refreshToken");
         const sid = urlParams.get("sid");
         const errorMessage = urlParams.get("message");
 
-        // **Сценарий 1: Успешный вход через Google**
         if (accessToken && refreshToken && sid) {
             const fetchUserAfterGoogleAuth = async () => {
                 try {
@@ -100,15 +75,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
                         };
                     }
 
-                    const loginData: LoginResponse = {
+                    handleLogin({
                         accessToken,
                         refreshToken,
                         sid,
                         userData,
-                    };
-                    handleLogin(loginData);
-                    toast.success(`Welcome, ${userData.email}!`);
+                    });
 
+                    toast.success(`Welcome, ${userData.email}!`);
                     window.history.replaceState(
                         {},
                         document.title,
@@ -122,27 +96,29 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
                 }
             };
             fetchUserAfterGoogleAuth();
-        }
-        // **Сценарий 2: Неудачный вход через Google**
-        else if (errorMessage) {
-            const decodedMessage = decodeURIComponent(errorMessage);
-            toast.error(decodedMessage);
+        } else if (errorMessage) {
+            toast.error(decodeURIComponent(errorMessage));
             window.history.replaceState(
                 {},
                 document.title,
                 window.location.pathname
             );
-        }
-        // **Сценарий 3: Обычная загрузка страницы (проверяем localStorage)**
-        else {
+        } else {
             const storedAccessToken = localStorage.getItem("accessToken");
             const storedUser = localStorage.getItem("user");
-
             if (storedAccessToken && storedUser) {
-                authService.setToken(storedAccessToken);
-                setIsLoggedIn(true);
-                setUser(JSON.parse(storedUser));
-                setToken(storedAccessToken);
+                const parsedUser = safeParseJSON<UserData>(storedUser, {
+                    email: "",
+                    id: "",
+                });
+                if (parsedUser.id) {
+                    authService.setToken(storedAccessToken);
+                    setIsLoggedIn(true);
+                    setUser(parsedUser);
+                    setToken(storedAccessToken);
+                } else {
+                    localStorage.removeItem("user");
+                }
             }
         }
     }, []);
@@ -162,12 +138,4 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
             {children}
         </AuthContext.Provider>
     );
-};
-
-export const useAuth = () => {
-    const context = useContext(AuthContext);
-    if (context === undefined) {
-        throw new Error("useAuth must be used within an AuthProvider");
-    }
-    return context;
 };

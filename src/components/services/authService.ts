@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError, type AxiosRequestConfig } from "axios";
 import type {
     RegistrationRequest,
     RegistrationResponse,
@@ -6,16 +6,45 @@ import type {
     LoginResponse,
     RefreshResponse,
     UserData,
+    Question,
+    Answer,
+    TestResult,
 } from "../types/auth";
 
-const BASE_URL = "https://protest-backend.goit.global";
+// Можно вынести в .env (как обсуждали ранее)
+const BASE_URL =
+    import.meta.env.VITE_API_BASE_URL ?? "https://protest-backend.goit.global";
 
 const instance = axios.create({
     baseURL: BASE_URL,
 });
 
+// Расширяем конфиг для отметки повторной попытки
+interface RetriableAxiosRequestConfig extends AxiosRequestConfig {
+    _retry?: boolean;
+}
+
+// Очередь для запросов, которые ждут обновления токена
+interface FailedQueueItem {
+    resolve: (value: string | PromiseLike<string | null> | null) => void;
+    reject: (reason?: unknown) => void;
+}
+
+let isRefreshing = false;
+let failedQueue: FailedQueueItem[] = [];
+
+const processQueue = (error: unknown, token: string | null = null) => {
+    failedQueue.forEach(({ resolve, reject }) => {
+        if (error) {
+            reject(error);
+        } else {
+            resolve(token);
+        }
+    });
+    failedQueue = [];
+};
+
 export const authService = {
-    // Функция для динамической установки токена
     setToken: (token: string | null) => {
         if (token) {
             instance.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -30,69 +59,61 @@ export const authService = {
     login: (data: LoginRequest) =>
         instance.post<LoginResponse>("/auth/login", data),
 
-    // Новый метод для обновления токенов
     refresh: (sid: string) =>
         instance.post<RefreshResponse>("/auth/refresh", { sid }),
 
-    logout: () => instance.post("/auth/logout"),
+    logout: () => instance.post<void>("/auth/logout"),
 
     getCurrentUser: async (): Promise<UserData> => {
         const { data } = await instance.get<UserData>("/user");
         return data;
     },
 
-    getTechQuestions: () => instance.get("/qa-test/tech"),
-    getTheoryQuestions: () => instance.get("/qa-test/theory"),
-    sendTechResults: (answers: any) => instance.post("/qa-test/tech-results", { answers }),
-    sendTheoryResults: (answers: any) => instance.post("/qa-test/theory-results", { answers }),
+    getTechQuestions: () => instance.get<Question[]>("/qa-test/tech"),
+    getTheoryQuestions: () => instance.get<Question[]>("/qa-test/theory"),
+
+    // Типизируем отправку результатов
+    sendTechResults: (answers: Answer[]) =>
+        instance.post<TestResult>("/qa-test/tech-results", { answers }),
+
+    sendTheoryResults: (answers: Answer[]) =>
+        instance.post<TestResult>("/qa-test/theory-results", { answers }),
 };
 
-// --- Интерцептор для автоматического обновления токенов ---
-let isRefreshing = false;
-let failedQueue: any[] = [];
-
-const processQueue = (error: any, token: string | null = null) => {
-    failedQueue.forEach((prom) => {
-        if (error) {
-            prom.reject(error);
-        } else {
-            prom.resolve(token);
-        }
-    });
-    failedQueue = [];
-};
-
-// Перехватчик запросов
+// Перехватчик запросов (оставляем без доп. логики пока)
 instance.interceptors.request.use(
-    (config) => {
-        // В будущем, здесь можно будет добавить логику для получения токена из localStorage
-        return config;
-    },
-    (error) => {
-        return Promise.reject(error);
-    }
+    (config) => config,
+    (error) => Promise.reject(error)
 );
 
 // Перехватчик ответов
 instance.interceptors.response.use(
     (response) => response,
-    async (error) => {
-        const originalRequest = error.config;
+    async (error: AxiosError) => {
+        const originalRequest = error.config as
+            | RetriableAxiosRequestConfig
+            | undefined;
 
-        // Если ошибка 401 и запрос еще не был повторен
-        if (error.response?.status === 401 && !originalRequest._retry) {
+        if (
+            error.response?.status === 401 &&
+            originalRequest &&
+            !originalRequest._retry
+        ) {
             if (isRefreshing) {
-                // Если уже идет процесс обновления, ставим запрос в очередь
-                return new Promise(function (resolve, reject) {
+                // Ждем обновления токена
+                return new Promise<string | null>((resolve, reject) => {
                     failedQueue.push({ resolve, reject });
                 })
                     .then((token) => {
-                        originalRequest.headers.Authorization = `Bearer ${token}`;
+                        if (token) {
+                            originalRequest.headers = {
+                                ...(originalRequest.headers || {}),
+                                Authorization: `Bearer ${token}`,
+                            };
+                        }
                         return instance(originalRequest);
                     })
-                    .catch((err) => {
-                        return Promise.reject(err);
-                    });
+                    .catch((err) => Promise.reject(err));
             }
 
             originalRequest._retry = true;
@@ -102,31 +123,32 @@ instance.interceptors.response.use(
             const sid = localStorage.getItem("sid");
 
             if (!refreshToken || !sid) {
-                // Если токена нет, просто выходим
                 return Promise.reject(error);
             }
 
             try {
-                // Меняем заголовок авторизации на refreshToken
+                // Временно используем refreshToken
                 authService.setToken(refreshToken);
                 const { data } = await authService.refresh(sid);
 
-                // Обновляем токены в localStorage и в axios
                 localStorage.setItem("accessToken", data.newAccessToken);
                 localStorage.setItem("refreshToken", data.newRefreshToken);
                 localStorage.setItem("sid", data.newSid);
+
                 authService.setToken(data.newAccessToken);
 
                 processQueue(null, data.newAccessToken);
 
-                // Повторяем исходный запрос с новым токеном
-                originalRequest.headers.Authorization = `Bearer ${data.newAccessToken}`;
+                originalRequest.headers = {
+                    ...(originalRequest.headers || {}),
+                    Authorization: `Bearer ${data.newAccessToken}`,
+                };
+
                 return instance(originalRequest);
             } catch (refreshError) {
                 processQueue(refreshError, null);
-                // Если обновление не удалось, выходим из системы
                 localStorage.clear();
-                window.location.reload(); // Перезагружаем страницу для полного выхода
+                window.location.reload();
                 return Promise.reject(refreshError);
             } finally {
                 isRefreshing = false;

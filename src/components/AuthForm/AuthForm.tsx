@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/useAuth";
 import { authService } from "../services/authService";
 import toast from "react-hot-toast";
 import css from "./AuthForm.module.css";
+import axios from "axios";
+import type { ApiErrorResponse } from "../types/auth";
 
 interface AuthFormProps {
     isLogin: boolean;
@@ -32,14 +34,14 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLogin, setIsLogin }) => {
             }
         } catch (error: unknown) {
             let errorMessage = "An error occurred. Please try again.";
+
             if (
-                typeof error === "object" &&
-                error !== null &&
-                "response" in error &&
-                typeof (error as any).response?.data?.message === "string"
+                axios.isAxiosError<ApiErrorResponse>(error) &&
+                typeof error.response?.data?.message === "string"
             ) {
-                errorMessage = (error as any).response.data.message;
+                errorMessage = error.response.data.message;
             }
+
             toast.error(errorMessage);
         } finally {
             setIsLoading(false);

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import css from "./AuthPage.module.css";
 import { FcGoogle } from "react-icons/fc";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/useAuth";
 import AuthForm from "../AuthForm/AuthForm";
 
 const AuthPage: React.FC = () => {

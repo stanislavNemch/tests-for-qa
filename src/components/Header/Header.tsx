@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/useAuth";
 import css from "./Header.module.css";
 import logoUrl from "../../assets/logo.svg";
 import { GiHamburgerMenu } from "react-icons/gi";
